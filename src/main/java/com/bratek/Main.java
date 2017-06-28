@@ -29,6 +29,10 @@ public class Main {
         //TODO: Think about impl of display board.
         System.out.println(Arrays.deepToString(board));
 
+        //TODO: Player moves in theirs turns
+        System.out.println("Player moves:");
+
+
 
     }
 }
