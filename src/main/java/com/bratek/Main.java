@@ -1,7 +1,11 @@
 package com.bratek;
 
 
-import java.util.Arrays;
+import com.bratek.board.Position;
+import com.bratek.board.Tile;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -19,21 +23,51 @@ public class Main {
         //TODO: Prepare impl of User, contains his sign.
         String userSign = scanner.nextLine();
 
-        //TODO: Prepare impl of board and tiles.
-        String [][] board = new String[3][3];
-
-        //TODO: Prepare impl of initialize board.
-        for (String[] row : board)
-            Arrays.fill(row, "0");
-
-        //TODO: Think about impl of display board.
-        System.out.println(Arrays.deepToString(board));
-
-        //TODO: Player moves in theirs turns
-        System.out.println("Player moves:");
+//        //TODO: Prepare impl of board and tiles.
+//        String [][] board = new String[3][3];
+//
+//        //TODO: Prepare impl of initialize board.
+//        for (String[] row : board)
+//            Arrays.fill(row, "0");
+//
+//        //TODO: Think about impl of display board.
+//        System.out.println(Arrays.deepToString(board));
+//
+//        //TODO: Player moves in theirs turns
+//        System.out.println("Player moves:");
 
         //TODO:
 
 
+        Map<Integer, Tile> board = generateBoard();
+
+        for (Map.Entry<Integer, Tile> entry: board.entrySet()){
+            System.out.print(entry.getValue().getSign());
+        }
+
+        board.forEach((k,v) -> {
+            int i = 1;
+            if(i % 3 == 0){
+                System.out.println();
+            }
+            System.out.print(v.getSign());
+            i++;
+        });
+
+    }
+
+    private static Map<Integer, Tile> generateBoard() {
+        Map<Integer, Tile> board = new HashMap<>();
+            board.put(1,new Tile(new Position(1,1),"X"));
+            board.put(2,new Tile(new Position(1,2),"X"));
+            board.put(3,new Tile(new Position(1,3),"X"));
+            board.put(4,new Tile(new Position(2,1),"X"));
+            board.put(5,new Tile(new Position(2,2),"X"));
+            board.put(6,new Tile(new Position(2,3),"X"));
+            board.put(7,new Tile(new Position(3,1),"X"));
+            board.put(8,new Tile(new Position(3,2),"X"));
+            board.put(9,new Tile(new Position(3,3),"X"));
+
+        return board;
     }
 }
