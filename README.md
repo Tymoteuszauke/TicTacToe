@@ -10,4 +10,5 @@ This project is about simple game Tic Tac Toe
 # 3.2 Class Diagram
 
 ## 4. To do list
-To do list will be created on Trello.
+  
+https://trello.com/b/QeLIT0hE/tic-tac-toe
