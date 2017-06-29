@@ -41,19 +41,18 @@ public class Main {
 
         Map<Integer, Tile> board = generateBoard();
 
-        for (Map.Entry<Integer, Tile> entry: board.entrySet()){
-            System.out.print(entry.getValue().getSign());
-        }
+        drawBoard(board);
 
+    }
+
+    private static void drawBoard(Map<Integer, Tile> board) {
         board.forEach((k,v) -> {
-            int i = 1;
-            if(i % 3 == 0){
+            System.out.print("|" + k + "|");
+            if(k % 3 == 0){
                 System.out.println();
             }
-            System.out.print(v.getSign());
-            i++;
+            k++;
         });
-
     }
 
     private static Map<Integer, Tile> generateBoard() {
