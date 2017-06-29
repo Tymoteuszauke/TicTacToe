@@ -4,8 +4,6 @@ package com.bratek;
 import com.bratek.board.Position;
 import com.bratek.board.Tile;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,15 +16,19 @@ public class Main {
         //TODO: Prepare impl of game with Human or game with Computer.
         System.out.println("Human vs Human (1) \nHuman vs Computer(2) \nComputer vs Computer (3)");
 
+
+        UIMessenger uiMessenger = new UIMessenger(System.out, System.in);
+
+
         Scanner scanner = new Scanner(System.in);
         //TODO: Prepare bi-lingual impl of communication with players.
 
-        Game game = new Game();
-        System.out.println("Tell me your name: ");
-        game.createPlayer(System.in);
-        System.out.println("Tell me, which character will start first: ");
+        Game game = new Game(uiMessenger);
+        game.message("Tell me your name: ");
+        game.createPlayer(uiMessenger.getInputStream());
+        game.message("Tell me, which character will start first: ");
 
-        System.out.println(game.players.get(0).getName());
+        game.message(game.getPlayers().get(0).getName());
 
         //TODO: Prepare impl of User, contains his sign.
         String userSign = scanner.nextLine();

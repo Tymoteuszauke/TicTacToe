@@ -1,6 +1,5 @@
 package com.bratek;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,8 +18,10 @@ public class GameTest {
 
     private Game game;
 
+    private UIMessenger uiMessenger;
     @BeforeTest
     public void prepare(){
+        this.uiMessenger = new UIMessenger(System.out, System.in);
         this.game = new Game();
     }
 
@@ -55,7 +56,7 @@ public class GameTest {
     public void shouldCreateUserIfNameIsValid(String correctName, boolean result){
         game.createPlayer(new ByteArrayInputStream(correctName.getBytes()));
 
-        assertTrue(game.players.contains(new Player(correctName)));
+        assertTrue(game.getPlayers().contains(new Player(correctName)));
     }
 
 

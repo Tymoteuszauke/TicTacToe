@@ -12,12 +12,26 @@ import java.util.Scanner;
  */
 public class Game {
 
-    List<Player> players;
+    private List<Player> players;
+
+    private UIMessenger uiMessanger;
 
     public Game(){
         players = new ArrayList<>();
     }
 
+    public Game(UIMessenger uiMessanger) {
+        players = new ArrayList<>();
+        this.uiMessanger = uiMessanger;
+    }
+
+    public void message(String message){
+        uiMessanger.printMessage(message);
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
 
     public void createPlayer(InputStream stream) {
         Scanner scanner = new Scanner(stream);
