@@ -43,10 +43,17 @@ public class Main {
 
         drawBoard(board);
 
+        System.out.println("Chose your tile: ");
+        int field = Integer.parseInt(scanner.nextLine());
+
+        board.get(field).setSign(userSign);
+
+        drawBoard(board);
     }
 
     private static void drawBoard(Map<Integer, Tile> board) {
         board.forEach((k,v) -> {
+            System.out.print("|" + v.getSign() + "|");
             System.out.print("|" + k + "|");
             if(k % 3 == 0){
                 System.out.println();
