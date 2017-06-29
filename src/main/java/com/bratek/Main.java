@@ -4,6 +4,8 @@ package com.bratek;
 import com.bratek.board.Position;
 import com.bratek.board.Tile;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,9 +18,15 @@ public class Main {
         //TODO: Prepare impl of game with Human or game with Computer.
         System.out.println("Human vs Human (1) \nHuman vs Computer(2) \nComputer vs Computer (3)");
 
-        //TODO: Prepare bi-lingual impl of communication with players.
-        System.out.println("Tell me, which character will start first: ");
         Scanner scanner = new Scanner(System.in);
+        //TODO: Prepare bi-lingual impl of communication with players.
+
+        Game game = new Game();
+        System.out.println("Tell me your name: ");
+        game.createPlayer(System.in);
+        System.out.println("Tell me, which character will start first: ");
+
+        System.out.println(game.players.get(0).getName());
 
         //TODO: Prepare impl of User, contains his sign.
         String userSign = scanner.nextLine();
@@ -38,17 +46,32 @@ public class Main {
 
         //TODO:
 
+        System.out.println("Ask about size: ");
 
         Map<Integer, Tile> board = generateBoard();
 
         drawBoard(board);
 
-        System.out.println("Chose your tile: ");
+        System.out.println("Choose your tile: ");
         int field = Integer.parseInt(scanner.nextLine());
 
-        board.get(field).setSign(userSign);
+        putSign(userSign, board, field);
 
         drawBoard(board);
+
+        System.out.println("Second Player choose your sign: ");
+        String secondUserSign = scanner.nextLine();
+        drawBoard(board);
+
+        System.out.println("Choose your tile: ");
+        field = Integer.parseInt(scanner.nextLine());
+        putSign(secondUserSign, board, field);
+
+        drawBoard(board);
+    }
+
+    private static void putSign(String userSign, Map<Integer, Tile> board, int field) {
+        board.get(field).setSign(userSign);
     }
 
     private static void drawBoard(Map<Integer, Tile> board) {
