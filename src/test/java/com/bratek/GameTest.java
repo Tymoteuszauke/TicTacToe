@@ -52,11 +52,20 @@ public class GameTest {
         return new Object[][]{
                 {"X",""},
                 {"O",""},
-                {"123",""},
                 {"Matt", ""}
         };
     }
 
+
+    @DataProvider(name = "incorrectCommands")
+    public static Object[][] incorrectCommands(){
+        return new Object[][]{
+                {"Xczq*",""},
+                {"Oqwe/",""},
+                {"123 asdq",""},
+                {"A/", ""}
+        };
+    }
 
     @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectNames")
     public void shouldThrowExceptionIfNameIsNotValid(String incorrectName, String incorrectName2){
@@ -78,6 +87,12 @@ public class GameTest {
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
 
         assertEquals(game.takePlayerCommand(),command);
+    }
+
+    @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectCommands")
+    public void shouldThrowAnExceptionIfCommandIsIncorrect(String command, String result){
+        uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
+        game.takePlayerCommand();
     }
 
 

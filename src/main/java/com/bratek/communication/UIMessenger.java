@@ -1,7 +1,9 @@
 package com.bratek.communication;
 
+import javax.lang.model.SourceVersion;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -50,6 +52,19 @@ public class UIMessenger implements Messenger{
 
     public String takePlayerCommand(){
         Scanner scanner = new Scanner(inputStream);
-        return scanner.nextLine();
+        String command = scanner.nextLine();
+        if(!isCommand(command)){
+            throw new InputMismatchException("Wrong Command");
+        }
+        return command;
+    }
+
+    private boolean isCommand(String command) {
+        if(SourceVersion.isName(command))
+            return true;
+        if(command.equals("X") || command.equals("O"))
+            return true;
+
+        return false;
     }
 }
