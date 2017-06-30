@@ -10,6 +10,4 @@ public interface Messenger {
     String printMessage(String message);
 
     String takePlayerCommand();
-
-    InputStream getInputStream();
 }

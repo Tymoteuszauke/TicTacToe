@@ -51,8 +51,7 @@ public class GameTest {
         return new Object[][]{
                 {"Mate.12", "ASdqw123"},
                 {"mate.12", "asdo2pwqe "},
-                {"mate*/", "asd~"},
-                {"Mateusz", "asd"}
+                {"mate*/", "asd~"}
         };
     }
 
@@ -83,15 +82,7 @@ public class GameTest {
 
     }
 
-    @Test(dataProvider = "correctNames")
-    public void shouldCreatePlayerIfPlayerIsValid(String correctName, String sign){
-        uiMessenger.setInputStream(new ByteArrayInputStream((correctName + System.getProperty("line.separator") +
-                sign + System.getProperty("line.separator")).getBytes()));
-        game.createPlayer();
 
-
-        assertTrue(game.getPlayers().contains(new Player(correctName, sign)));
-    }
 
     @Test(dataProvider = "correctCommands")
     public void shouldReturnPlayerCommand(String command, String result){
@@ -112,5 +103,6 @@ public class GameTest {
 
         assertEquals(vertical * horizontal, game.getBoard().size());
     }
+
 
 }

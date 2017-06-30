@@ -31,7 +31,5 @@ public class Player {
         return result;
     }
 
-    public String getName() {
-        return name;
-    }
+
 }
