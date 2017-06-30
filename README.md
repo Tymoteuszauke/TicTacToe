@@ -32,5 +32,15 @@ Currently I don't finished the diagram at all, still have some changes.
  At the beginning of the game, board is a map of Integer(Key) and " " (values).
  If player put him sing to one of tiles then create immutable object and insert it to 
  map as a value.
+ 
+ ### 7.2 Player
+   Create player interface and his implementations:
+   + HumanPlayer
+   + ComputerPlayer
+ ### 7.3 Game
+ Crete game interface and his implementations:
+ + HumansGame
+ + ComputersGame
+ + HumanVsComputer
 
 
