@@ -37,10 +37,21 @@ Currently I don't finished the diagram at all, still have some changes.
    Create player interface and his implementations:
    + HumanPlayer
    + ComputerPlayer
+   
+
  ### 7.3 Game
  Crete game interface and his implementations:
  + HumansGame
  + ComputersGame
  + HumanVsComputer
+### 7.4 Winner Checker
+ + Don't need to check all tiles. 
+ Just start from the latest tile that player choose. 
+  Create an interface and add implementation of checkers.
+  
+### 7.5 CRC
+Each class from CRC should be interface? 
 
-
+### 7.6 Implementation
++ Streams
++ Lambdas
