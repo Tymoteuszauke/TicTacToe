@@ -16,6 +16,10 @@ public class UIMessenger implements Messenger{
     private PrintStream printStream;
     private InputStream inputStream;
 
+    public UIMessenger() {
+
+    }
+
     public UIMessenger(PrintStream printStream, InputStream inputStream) {
         this.printStream = printStream;
         this.inputStream = inputStream;
@@ -37,6 +41,9 @@ public class UIMessenger implements Messenger{
         this.inputStream = inputStream;
     }
 
+    /*
+    *   How to test this method?
+    * */
     public void printMessage(String message){
         printStream.println(message);
     }
