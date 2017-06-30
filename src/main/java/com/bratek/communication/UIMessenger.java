@@ -1,4 +1,4 @@
-package com.bratek;
+package com.bratek.communication;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 /*
 * How to write TDD for this class or better... How to write TDD if I have Interfaces.
 * */
-public class UIMessenger {
+public class UIMessenger implements Messenger{
     private PrintStream printStream;
     private InputStream inputStream;
 
@@ -37,11 +37,11 @@ public class UIMessenger {
         this.inputStream = inputStream;
     }
 
-    void printMessage(String message){
+    public void printMessage(String message){
         printStream.println(message);
     }
 
-    String takeUserCommand(){
+    public String takeUserCommand(){
         Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }

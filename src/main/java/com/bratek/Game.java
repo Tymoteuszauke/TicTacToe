@@ -1,5 +1,8 @@
 package com.bratek;
 
+import com.bratek.communication.Messenger;
+import com.bratek.communication.UIMessenger;
+
 import javax.lang.model.SourceVersion;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -14,19 +17,19 @@ public class Game {
 
     private List<Player> players;
 
-    private UIMessenger uiMessanger;
+    private Messenger messenger;
 
-    public Game(){
+    public Game(Messenger messenger){
         players = new ArrayList<>();
     }
 
-    public Game(UIMessenger uiMessanger) {
+    public Game(UIMessenger messenger) {
         players = new ArrayList<>();
-        this.uiMessanger = uiMessanger;
+        this.messenger = messenger;
     }
 
     public void message(String message){
-        uiMessanger.printMessage(message);
+        messenger.printMessage(message);
     }
 
     public List<Player> getPlayers() {

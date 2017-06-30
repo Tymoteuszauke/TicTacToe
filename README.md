@@ -13,15 +13,22 @@ with good test coverage.
  
 https://trello.com/b/QeLIT0hE/tic-tac-toe
 ## 3. List of test
-1. Win conditions
-
+0. Test communication.
+1. Create board of given size (Square). 
+ 
+2. Win Conditions 
 ## 4. Problems
+1. Test validation Input.
 ## 5. Diagrams
 ### 5.1 CRC
 Currently I don't finished the diagram at all, still have some changes.
 ### 5.2 Class Diagram
 ## 6. Improvements
 ### 6.1 Maven 
-
+## 7. Ideas
+### 7.1 Board 
+ At the beginning of the game, board is a map of Integer(Key) and " " (values).
+ If player put him sing to one of tiles then create immutable object and insert it to 
+ map as a value.
 
 

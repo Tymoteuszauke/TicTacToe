@@ -3,6 +3,8 @@ package com.bratek;
 
 import com.bratek.board.Position;
 import com.bratek.board.Tile;
+import com.bratek.communication.Messenger;
+import com.bratek.communication.UIMessenger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ public class Main {
         System.out.println("Human vs Human (1) \nHuman vs Computer(2) \nComputer vs Computer (3)");
 
 
-        UIMessenger uiMessenger = new UIMessenger(System.out, System.in);
+        Messenger uiMessenger = new UIMessenger(System.out, System.in);
 
 
         Scanner scanner = new Scanner(System.in);

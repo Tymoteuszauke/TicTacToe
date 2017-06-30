@@ -1,5 +1,6 @@
 package com.bratek;
 
+import com.bratek.communication.UIMessenger;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -22,7 +23,7 @@ public class GameTest {
     @BeforeTest
     public void prepare(){
         this.uiMessenger = new UIMessenger(System.out, System.in);
-        this.game = new Game();
+        this.game = new Game(uiMessenger);
     }
 
     @DataProvider(name = "correctNames")
