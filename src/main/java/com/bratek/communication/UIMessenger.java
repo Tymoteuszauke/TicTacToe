@@ -46,8 +46,9 @@ public class UIMessenger implements Messenger{
     /*
     *   How to test this method?
     * */
-    public void printMessage(String message){
+    public String printMessage(String message){
         printStream.println(message);
+        return message;
     }
 
     public String takePlayerCommand(){

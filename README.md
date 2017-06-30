@@ -19,6 +19,7 @@ https://trello.com/b/QeLIT0hE/tic-tac-toe
 2. Win Conditions 
 ## 4. Problems
 1. Test validation Input. 
+2. How to test many inputs from one method?
 
 ## 5. Diagrams
 ### 5.1 CRC

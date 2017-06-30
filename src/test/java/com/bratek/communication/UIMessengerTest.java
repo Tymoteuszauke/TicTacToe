@@ -40,18 +40,13 @@ public class UIMessengerTest {
     }
 
 
-    /*
-    * How to test it?
-    * */
     @Test
     public void shouldReturnGivenMessage(){
         String message = "Message";
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         uiMessenger.setPrintStream(new PrintStream(outputStream));
 
-        uiMessenger.printMessage(message);
-
-        assertEquals(message, outputStream.toString());
+        assertEquals(message, uiMessenger.printMessage(message));
     }
 
 }

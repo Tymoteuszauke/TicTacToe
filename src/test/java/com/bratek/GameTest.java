@@ -6,7 +6,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.InputMismatchException;
 
 import static org.testng.Assert.assertEquals;
@@ -27,14 +26,23 @@ public class GameTest {
         this.game = new Game(uiMessenger);
     }
 
+    @DataProvider(name = "sizeOfBoard")
+    public static Object[][] sizeOfBoard(){
+        return new Object[][]{
+                {3,3},
+                {5,5},
+                {10,10}
+        };
+    }
+
     @DataProvider(name = "correctNames")
     public static Object[][] correctNames(){
         return new Object[][]{
-                {"Matt", true},
-                {"Kasia", true},
-                {"Janek", true},
-                {"marco", true},
-                {"Mar22", true}
+                {"Matt", "X"},
+                {"Kasia", "X"},
+                {"Janek", "O"},
+                {"marco", "X"},
+                {"Mar22", "X"}
         };
     }
 
@@ -43,7 +51,8 @@ public class GameTest {
         return new Object[][]{
                 {"Mate.12", "ASdqw123"},
                 {"mate.12", "asdo2pwqe "},
-                {"mate*/", "asd~"}
+                {"mate*/", "asd~"},
+                {"Mateusz", "asd"}
         };
     }
 
@@ -68,20 +77,20 @@ public class GameTest {
     }
 
     @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectNames")
-    public void shouldThrowExceptionIfNameIsNotValid(String incorrectName, String incorrectName2){
+    public void shouldThrowExceptionIfPlayerIsNotValid(String incorrectName, String sign){
         uiMessenger.setInputStream(new ByteArrayInputStream(incorrectName.getBytes()));
+        game.createPlayer();
 
-        game.createPlayer();
-        uiMessenger.setInputStream(new ByteArrayInputStream(incorrectName2.getBytes()));
-        game.createPlayer();
     }
 
     @Test(dataProvider = "correctNames")
-    public void shouldCreateUserIfNameIsValid(String correctName, boolean result){
-        uiMessenger.setInputStream(new ByteArrayInputStream(correctName.getBytes()));
+    public void shouldCreatePlayerIfPlayerIsValid(String correctName, String sign){
+        uiMessenger.setInputStream(new ByteArrayInputStream((correctName + System.getProperty("line.separator") +
+                sign + System.getProperty("line.separator")).getBytes()));
         game.createPlayer();
 
-        assertTrue(game.getPlayers().contains(new Player(correctName)));
+
+        assertTrue(game.getPlayers().contains(new Player(correctName, sign)));
     }
 
     @Test(dataProvider = "correctCommands")
@@ -97,10 +106,11 @@ public class GameTest {
         game.takePlayerCommand();
     }
 
-//    @Test
-//    public void setPlayerSignIfSignIsValid(){
-//        String sign = "X";
-//        uiMessenger.setInputStream(new ByteArrayInputStream(sign.getBytes()));
-//    }
+    @Test(dataProvider = "sizeOfBoard")
+    public void shouldCreateEmptyBoardWithGivenSize(int vertical, int horizontal){
+        game.createHashBoard(vertical * horizontal);
+
+        assertEquals(vertical * horizontal, game.getBoard().size());
+    }
 
 }

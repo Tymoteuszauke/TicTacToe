@@ -7,7 +7,7 @@ import java.io.InputStream;
  */
 public interface Messenger {
 
-    void printMessage(String message);
+    String printMessage(String message);
 
     String takePlayerCommand();
 

@@ -5,10 +5,12 @@ package com.bratek;
  */
 public class Player {
     final private String name;
-    private int score;
+    final private String sign;
+    private int score = 0;
 
-    public Player(String name) {
+    public Player(String name, String sign) {
         this.name = name;
+        this.sign = sign;
     }
 
     @Override
