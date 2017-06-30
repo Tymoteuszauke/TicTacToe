@@ -45,4 +45,8 @@ public class Game {
         Player player = new Player(name);
         players.add(player);
     }
+
+    public String takePlayerCommand() {
+        return messenger.takePlayerCommand();
+    }
 }

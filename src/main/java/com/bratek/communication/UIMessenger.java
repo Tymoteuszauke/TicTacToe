@@ -48,7 +48,7 @@ public class UIMessenger implements Messenger{
         printStream.println(message);
     }
 
-    public String takeUserCommand(){
+    public String takePlayerCommand(){
         Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }

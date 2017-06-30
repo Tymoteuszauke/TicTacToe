@@ -18,7 +18,8 @@ https://trello.com/b/QeLIT0hE/tic-tac-toe
  
 2. Win Conditions 
 ## 4. Problems
-1. Test validation Input.
+1. Test validation Input. 
+
 ## 5. Diagrams
 ### 5.1 CRC
 Currently I don't finished the diagram at all, still have some changes.

@@ -9,7 +9,7 @@ public interface Messenger {
 
     void printMessage(String message);
 
-    String takeUserCommand();
+    String takePlayerCommand();
 
     InputStream getInputStream();
 }

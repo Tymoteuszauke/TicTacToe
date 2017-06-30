@@ -36,9 +36,13 @@ public class UIMessengerTest {
     public void shouldReturnGivenCommand(String command, String result){
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
 
-        assertEquals(uiMessenger.takeUserCommand(),command);
+        assertEquals(uiMessenger.takePlayerCommand(),command);
     }
 
+
+    /*
+    * How to test it?
+    * */
     @Test
     public void shouldReturnGivenMessage(){
         String message = "Message";

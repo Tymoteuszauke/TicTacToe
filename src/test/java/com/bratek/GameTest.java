@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.InputMismatchException;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -32,7 +33,8 @@ public class GameTest {
                 {"Matt", true},
                 {"Kasia", true},
                 {"Janek", true},
-                {"marco", true}
+                {"marco", true},
+                {"Mar22", true}
         };
     }
 
@@ -44,6 +46,17 @@ public class GameTest {
                 {"mate*/", "asd~"}
         };
     }
+
+    @DataProvider(name = "correctCommands")
+    public static Object[][] correctCommands(){
+        return new Object[][]{
+                {"X",""},
+                {"O",""},
+                {"123",""},
+                {"Matt", ""}
+        };
+    }
+
 
     @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectNames")
     public void shouldThrowExceptionIfNameIsNotValid(String incorrectName, String incorrectName2){
@@ -58,6 +71,13 @@ public class GameTest {
         game.createPlayer(new ByteArrayInputStream(correctName.getBytes()));
 
         assertTrue(game.getPlayers().contains(new Player(correctName)));
+    }
+
+    @Test(dataProvider = "correctCommands")
+    public void shouldReturnPlayerCommand(String command, String result){
+        uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
+
+        assertEquals(game.takePlayerCommand(),command);
     }
 
 
