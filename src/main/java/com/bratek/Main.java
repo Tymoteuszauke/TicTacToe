@@ -27,7 +27,7 @@ public class Main {
 
         Game game = new Game(uiMessenger);
         game.message("Tell me your name: ");
-        game.createPlayer(uiMessenger.getInputStream());
+        game.createPlayer();
         game.message("Tell me, which character will start first: ");
 
         game.message(game.getPlayers().get(0).getName());

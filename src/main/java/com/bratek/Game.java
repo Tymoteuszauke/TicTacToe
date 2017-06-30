@@ -21,6 +21,7 @@ public class Game {
 
     public Game(Messenger messenger){
         players = new ArrayList<>();
+        this.messenger = messenger;
     }
 
     public Game(UIMessenger messenger) {
@@ -36,8 +37,8 @@ public class Game {
         return players;
     }
 
-    public void createPlayer(InputStream stream) {
-        Scanner scanner = new Scanner(stream);
+    public void createPlayer() {
+        Scanner scanner = new Scanner(messenger.getInputStream());
         String name = scanner.nextLine();
         if(!SourceVersion.isName(name)){
             throw new InputMismatchException("This is not a name!");

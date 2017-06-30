@@ -69,15 +69,17 @@ public class GameTest {
 
     @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectNames")
     public void shouldThrowExceptionIfNameIsNotValid(String incorrectName, String incorrectName2){
-        InputStream stream = new ByteArrayInputStream(incorrectName.getBytes());
-        game.createPlayer(stream);
-        stream = new ByteArrayInputStream(incorrectName2.getBytes());
-        game.createPlayer(stream);
+        uiMessenger.setInputStream(new ByteArrayInputStream(incorrectName.getBytes()));
+
+        game.createPlayer();
+        uiMessenger.setInputStream(new ByteArrayInputStream(incorrectName2.getBytes()));
+        game.createPlayer();
     }
 
     @Test(dataProvider = "correctNames")
     public void shouldCreateUserIfNameIsValid(String correctName, boolean result){
-        game.createPlayer(new ByteArrayInputStream(correctName.getBytes()));
+        uiMessenger.setInputStream(new ByteArrayInputStream(correctName.getBytes()));
+        game.createPlayer();
 
         assertTrue(game.getPlayers().contains(new Player(correctName)));
     }
@@ -95,5 +97,10 @@ public class GameTest {
         game.takePlayerCommand();
     }
 
+//    @Test
+//    public void setPlayerSignIfSignIsValid(){
+//        String sign = "X";
+//        uiMessenger.setInputStream(new ByteArrayInputStream(sign.getBytes()));
+//    }
 
 }
