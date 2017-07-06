@@ -1,10 +1,11 @@
 package com.bratek;
 
+import com.bratek.board.Board;
 import com.bratek.communication.Messenger;
 import com.bratek.communication.UIMessenger;
+import com.bratek.player.Player;
 
 import javax.lang.model.SourceVersion;
-import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -13,27 +14,21 @@ import java.util.*;
 public class Game {
 
     private List<Player> players;
-
     private Messenger messenger;
+    private Board board;
 
-    private Map<Integer, String> board;
 
     public Game(Messenger messenger){
         players = new ArrayList<>();
         this.messenger = messenger;
     }
 
+    public void start() {
 
-    public List<Player> getPlayers() {
-        return players;
     }
 
-    public Map<Integer, String> getBoard() {
-        return board;
-    }
-
-    public void setBoard(Map<Integer, String> board) {
-        this.board = board;
+    public void prepareBoard(int height, int width) {
+        this.board = new Board(height, width);
     }
 
     public Game(UIMessenger messenger) {
@@ -56,8 +51,7 @@ public class Game {
         if(isSign(sign)){
             throw new InputMismatchException("This is incorrect sign!");
         }
-        Player player = new Player(name, sign);
-        players.add(player);
+
     }
 
     private boolean isSign(String sign) {
@@ -73,11 +67,5 @@ public class Game {
         return messenger.takePlayerCommand();
     }
 
-    public void createHashBoard(int size) {
-        board = new HashMap<>();
 
-        for(int i = 1; i <= size; i++){
-            board.put(i, "#");
-        }
-    }
 }
