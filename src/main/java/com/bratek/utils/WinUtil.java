@@ -8,7 +8,9 @@ import com.bratek.board.BoardField;
  */
 public class WinUtil {
 
-    public static boolean winnerFound(Board board, BoardField boardField, int winSequence) {
+    public static boolean winnerFound(Board board, int boardFieldPosition, int winSequence) {
+
+        BoardField boardField = board.get(boardFieldPosition);
 
         return checkVertical(board, boardField, winSequence)
                 || checkHorizontal(board, boardField, winSequence)
@@ -16,8 +18,6 @@ public class WinUtil {
     }
 
     private static boolean checkDiagonal(Board board, BoardField boardField, int winSequence) {
-
-
         return false;
 
     }

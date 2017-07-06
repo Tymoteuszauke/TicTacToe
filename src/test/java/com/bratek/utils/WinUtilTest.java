@@ -33,7 +33,7 @@ public class WinUtilTest {
         board.draw("X", 7);
         board.draw("X", 8);
 
-        assertEquals(WinUtil.winnerFound(board, board.get(6), 4), true);
+        assertEquals(WinUtil.winnerFound(board, 6, 4), true);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class WinUtilTest {
         board.draw("X", 46);
         board.draw("X", 56);
 
-        assertEquals(WinUtil.winnerFound(board, board.get(26), 4), true);
+        assertEquals(WinUtil.winnerFound(board, 26, 4), true);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class WinUtilTest {
         board.draw("X", 61);
         board.draw("X", 72);
 
-        assertEquals(WinUtil.winnerFound(board, board.get(61), 3), false);
+        assertEquals(WinUtil.winnerFound(board, 61, 3), false);
     }
 
     public void antiDiagonalWinnerExpectTrue() {

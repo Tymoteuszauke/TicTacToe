@@ -36,7 +36,7 @@ public class Player implements Comparable<Player> {
         }
 
         public PlayerBuilder setSign(String sign) {
-            player.sign = " " + sign.substring(0, 1).toUpperCase() + " ";
+            player.sign = sign.substring(0, 1).toUpperCase();
             return this;
         }
 

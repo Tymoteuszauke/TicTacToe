@@ -51,21 +51,30 @@ public class UIMessenger implements Messenger{
         return message;
     }
 
-    public String takePlayerCommand() {
+    public String takePlayerSign() {
         Scanner scanner = new Scanner(inputStream);
         String command = scanner.nextLine();
 
-        if(!isDigit(command)){
+        if(!isSign(command)){
             throw new InputMismatchException("Wrong Command");
         }
         return command;
     }
 
-    private boolean isDigit(String command) {
-        if(SourceVersion.isName(command))
-            return true;
-        if(command.equals("X") || command.equals("O"))
-            return true;
-        return false;
+    public int takeDigit() {
+        Scanner scanner = new Scanner(inputStream);
+        //TODO error secure
+
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public String takeCharacterSequence() {
+        Scanner scanner = new Scanner(inputStream);
+
+        return scanner.nextLine();
+    }
+
+    private boolean isSign(String command) {
+        return command.equals("X") || command.equals("O");
     }
 }

@@ -58,9 +58,8 @@ public class GameTest {
     @DataProvider(name = "correctCommands")
     public static Object[][] correctCommands(){
         return new Object[][]{
-                {"X",""},
-                {"O",""},
-                {"Matt", ""}
+                {"X"},
+                {"O"},
         };
     }
 
@@ -68,40 +67,55 @@ public class GameTest {
     @DataProvider(name = "incorrectCommands")
     public static Object[][] incorrectCommands(){
         return new Object[][]{
-                {"Xczq*",""},
-                {"Oqwe/",""},
-                {"123 asdq",""},
-                {"A/", ""}
+                {"Xczq*"},
+                {"Oqwe/"},
+                {"123 asdq"},
+                {"A/"}
         };
     }
 
-    @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectNames")
-    public void shouldThrowExceptionIfPlayerIsNotValid(String incorrectName, String sign){
-        uiMessenger.setInputStream(new ByteArrayInputStream(incorrectName.getBytes()));
-        game.createPlayer();
-
-    }
-
-
+//    @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectNames")
+//    public void shouldThrowExceptionIfPlayerIsNotValid(String incorrectName, String sign){
+//        uiMessenger.setInputStream(new ByteArrayInputStream(incorrectName.getBytes()));
+//        game.createPlayer(sign, incorrectName);
+//
+//    }
 
     @Test(dataProvider = "correctCommands")
-    public void shouldReturnPlayerCommand(String command, String result){
+    public void shouldReturnPlayerCommand(String command){
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
 
-        assertEquals(game.takePlayerCommand(),command);
+        assertEquals(game.takePlayerSignInput(), command);
     }
 
     @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectCommands")
-    public void shouldThrowAnExceptionIfCommandIsIncorrect(String command, String result){
+    public void shouldThrowAnExceptionIfCommandIsIncorrect(String command) {
+
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
-        game.takePlayerCommand();
+        game.takePlayerSignInput();
     }
 
-    @Test(dataProvider = "sizeOfBoard")
-    public void shouldCreateEmptyBoardWithGivenSize(int vertical, int horizontal){
-        //game.createHashBoard(vertical * horizontal);
+    //TODO move to BoardClassTest
+//    @Test(dataProvider = "sizeOfBoard")
+//    public void shouldCreateEmptyBoardWithGivenSize(int vertical, int horizontal){
+//        //game.createHashBoard(vertical * horizontal);
+//
+//        //assertEquals(vertical * horizontal, game.getBoard().size());
+//    }
 
-        //assertEquals(vertical * horizontal, game.getBoard().size());
+    @DataProvider
+    public static Object[][] playersCreationData(){
+        return new Object[][]{
+                {"X"},
+                {"O"}
+        };
+    }
+
+    @Test(dataProvider = "playersCreationData")
+    public void createPlayersTest(String sign) {
+
+
+
     }
 
 
