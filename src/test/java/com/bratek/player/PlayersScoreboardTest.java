@@ -1,0 +1,86 @@
+package com.bratek.player;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.testng.Assert.*;
+
+/**
+ * Created by Mateusz on 07.07.2017.
+ */
+public class PlayersScoreboardTest {
+
+    private List<Player> players = new ArrayList<>();
+    private PlayersScoreboard playersScoreboard;
+
+    @DataProvider
+    public static Object[][] dataProviderMethodName() {
+        return new Object[][] {
+        {}
+        };
+    }
+
+    @BeforeMethod()
+    public void setupPlayers() {
+
+        players.add(new Player.PlayerBuilder()
+                .name("Tymek")
+                .positionOrder(1)
+                .setSign("X")
+                .build());
+
+        players.add(new Player.PlayerBuilder()
+                .name("Remigiusz")
+                .positionOrder(2)
+                .setSign("O")
+                .build());
+
+        playersScoreboard = new PlayersScoreboard();
+        playersScoreboard.providePlayers(players);
+    }
+
+    @AfterMethod
+    public void clearPlayers() {
+        players.clear();
+    }
+
+    @Test
+    public void testMinimumGamesEncounteredExpectTrue() {
+
+        playersScoreboard.addPoint(players.get(0));
+        playersScoreboard.addPoint(players.get(0));
+        playersScoreboard.addPoint(players.get(0));
+
+        assertEquals(playersScoreboard.minimumGamesEncountered(), true);
+    }
+
+    @Test(dataProvider = "")
+    public void testPrintScore() {
+
+        //TODO this test is not complete
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+
+
+        String whatIsInConsole = out.toString();
+        String whatShouldBePrinted = System.getProperty("line.separator");
+
+        assertEquals(whatIsInConsole, whatShouldBePrinted);
+    }
+
+    @Test
+    public void testAddPoint() throws Exception {
+        //TODO addpoint test
+    }
+
+}

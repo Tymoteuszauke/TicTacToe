@@ -16,7 +16,6 @@ public class Main {
         Messenger uiMessenger = new UIMessenger(System.out, System.in);
         Game game = new Game(uiMessenger);
         game.start();
-
     }
 
 }

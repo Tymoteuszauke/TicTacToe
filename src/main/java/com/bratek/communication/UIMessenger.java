@@ -1,5 +1,7 @@
 package com.bratek.communication;
 
+import com.bratek.board.Board;
+
 import javax.lang.model.SourceVersion;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -51,6 +53,11 @@ public class UIMessenger implements Messenger{
         return message;
     }
 
+    public String printBoard(Board board) {
+        printStream.println(board);
+        return board.toString();
+    }
+
     public String takePlayerSign() {
         Scanner scanner = new Scanner(inputStream);
         String command = scanner.nextLine();
@@ -70,7 +77,6 @@ public class UIMessenger implements Messenger{
 
     public String takeCharacterSequence() {
         Scanner scanner = new Scanner(inputStream);
-
         return scanner.nextLine();
     }
 

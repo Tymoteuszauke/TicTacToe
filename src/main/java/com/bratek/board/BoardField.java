@@ -40,6 +40,24 @@ public class BoardField {
         return " " + sign + " ";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BoardField that = (BoardField) o;
+
+        if (fieldNumber != that.fieldNumber) return false;
+        return sign != null ? sign.equals(that.sign) : that.sign == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = sign != null ? sign.hashCode() : 0;
+        result = 31 * result + fieldNumber;
+        return result;
+    }
+
     public boolean isTaken() {
         return !sign.equals(String.valueOf(fieldNumber));
     }

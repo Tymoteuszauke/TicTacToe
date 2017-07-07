@@ -3,6 +3,7 @@ package com.bratek;
 import com.bratek.board.Board;
 import com.bratek.communication.Messenger;
 import com.bratek.communication.UIMessenger;
+import com.bratek.game.ScoreListener;
 import com.bratek.player.Player;
 import com.bratek.player.PlayersScoreboard;
 import com.bratek.utils.WinUtil;
@@ -12,7 +13,7 @@ import java.util.*;
 /**
  * Created by bratek on 29.06.17.
  */
-public class Game {
+public class Game implements ScoreListener{
 
     private final int MAX_PLAYERS = 2;
 
@@ -31,6 +32,7 @@ public class Game {
         gamePreparation();
         playersScoreboard = new PlayersScoreboard();
         playersScoreboard.providePlayers(players);
+        playersScoreboard.setScoreListener(this);
 
         currentPlayer = players.get(0);
 

@@ -41,12 +41,12 @@ public class Board {
         return board.get(position);
     }
 
-    public void draw(String sign, int position) throws BoardException {
+    public void draw(String playerSign, int position) throws BoardException {
 
         try {
             if (board.get(position).isTaken())
                 throw new AlreadyTakenPositionException();
-            board.get(position).setSign(sign);
+            board.get(position).setSign(playerSign);
 
         } catch (IndexOutOfBoundsException e) {
             throw new DrawingBesideBoardException();

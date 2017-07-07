@@ -84,7 +84,6 @@ public class GameTest {
     @Test(dataProvider = "correctCommands")
     public void shouldReturnPlayerCommand(String command){
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
-
         assertEquals(game.takePlayerSignInput(), command);
     }
 
