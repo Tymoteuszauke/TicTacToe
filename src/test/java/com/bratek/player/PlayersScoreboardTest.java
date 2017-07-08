@@ -4,6 +4,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -62,25 +63,39 @@ public class PlayersScoreboardTest {
         assertEquals(playersScoreboard.minimumGamesEncountered(), true);
     }
 
-    @Test(dataProvider = "")
+    @Test
     public void testPrintScore() {
 
-        //TODO this test is not complete
+        //TODO this test is not yet complete
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
 
+        playersScoreboard.addPoint(players.get(0));
+        playersScoreboard.addPoint(players.get(0));
+        playersScoreboard.addPoint(players.get(0));
 
+        playersScoreboard.addPoint(players.get(1));
+
+        playersScoreboard.printScore();
 
         String whatIsInConsole = out.toString();
-        String whatShouldBePrinted = System.getProperty("line.separator");
+        String whatShouldBePrinted =  "Amount of games played: " + playersScoreboard.getGamesCounter() +
+                System.getProperty("line.separator") + playersScoreboard.getPlayers() + System.getProperty("line.separator");
 
         assertEquals(whatIsInConsole, whatShouldBePrinted);
     }
 
     @Test
     public void testAddPoint() throws Exception {
-        //TODO addpoint test
+
+        playersScoreboard.addPoint(players.get(0));
+        playersScoreboard.addPoint(players.get(0));
+
+        playersScoreboard.addPoint(players.get(1));
+
+        assertEquals((int)playersScoreboard.getPlayers().get("Tymek"), 2);
+
     }
 
 }

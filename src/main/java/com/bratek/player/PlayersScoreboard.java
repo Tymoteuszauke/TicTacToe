@@ -2,6 +2,7 @@ package com.bratek.player;
 
 import com.bratek.game.ScoreListener;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,14 @@ public class PlayersScoreboard {
         return gamesCounter == 3;
     }
 
+    public int getGamesCounter() {
+        return gamesCounter;
+    }
+
+    public Map<String, Integer> getPlayers() {
+        return Collections.unmodifiableMap(players);
+    }
+
     public void providePlayers(List<Player> players) {
         for (Player player : players) {
             this.players.put(player.getName(), 0);
@@ -36,10 +45,13 @@ public class PlayersScoreboard {
         gamesCounter++;
         int currentScore = players.get(currentPlayer.getName());
         players.replace(currentPlayer.getName(), currentScore + 1);
+
+        if (minimumGamesEncountered()) scoreListener.minGamesPrompt();
     }
 
     public void setScoreListener(ScoreListener scoreListener) {
         this.scoreListener = scoreListener;
     }
+
 }
 

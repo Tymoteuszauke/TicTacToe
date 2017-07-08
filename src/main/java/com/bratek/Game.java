@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * Created by bratek on 29.06.17.
  */
-public class Game implements ScoreListener{
+public class Game implements ScoreListener {
 
     private final int MAX_PLAYERS = 2;
 
@@ -22,6 +22,8 @@ public class Game implements ScoreListener{
     private Board board;
     private Player currentPlayer;
     private PlayersScoreboard playersScoreboard;
+
+    private boolean gameContinue = true;
 
     public Game(Messenger messenger){
         players = new ArrayList<>();
@@ -36,7 +38,7 @@ public class Game implements ScoreListener{
 
         currentPlayer = players.get(0);
 
-        while (true) {
+        while (gameContinue) {
             message(String.format("...%s your move...", currentPlayer.getName()));
             message(board.toString());
             int chosenPosition = messenger.takeDigit();
@@ -45,10 +47,8 @@ public class Game implements ScoreListener{
             if (WinUtil.winnerFound(board, chosenPosition, 3)) {
                 playersScoreboard.addPoint(currentPlayer);
                 playersScoreboard.printScore();
-                if (playersScoreboard.minimumGamesEncountered()) break;
                 board.clear();
             }
-
 
             currentPlayer = players.stream()
                     .filter(data -> currentPlayer.getPosition() != data.getPosition())
@@ -125,5 +125,9 @@ public class Game implements ScoreListener{
         return messenger.takePlayerSign();
     }
 
-
+    @Override
+    public boolean minGamesPrompt() {
+        gameContinue = false;
+        return false;
+    }
 }
