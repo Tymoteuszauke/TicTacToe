@@ -1,10 +1,10 @@
-package com.bratek.game;
+package com.bratek.player;
 
 /**
  * Created by Mateusz on 07.07.2017.
  */
 public interface ScoreListener {
 
-    boolean minGamesPrompt();
+    void minGamesPrompt();
 
 }

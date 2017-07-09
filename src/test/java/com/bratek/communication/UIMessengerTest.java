@@ -18,14 +18,24 @@ public class UIMessengerTest {
 
     private UIMessenger uiMessenger;
 
+    @DataProvider
+    public static Object[][] playerInputData() {
+        return new Object[][] {
+                {"Tymek"},
+                {"Remigiusz"},
+                {"Rafal"},
+                {"Izabela"}
+        };
+    }
+
     @BeforeTest
-    public void prepare(){
+    public void prepare() {
         uiMessenger = new UIMessenger();
     }
 
 
     @DataProvider(name = "allowedCommands")
-    public static Object[][] allowedCommands(){
+    public static Object[][] allowedCommands() {
         return new Object[][]{
                 {"X", ""},
                 {"O", ""}
@@ -33,15 +43,14 @@ public class UIMessengerTest {
     }
 
     @Test(dataProvider = "allowedCommands")
-    public void shouldReturnGivenCommand(String command, String result){
+    public void shouldReturnGivenCommand(String command, String result) {
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
 
-        assertEquals(uiMessenger.takePlayerSign(),command);
+        assertEquals(uiMessenger.takePlayerSign(), command);
     }
 
-
     @Test
-    public void shouldReturnGivenMessage(){
+    public void shouldReturnGivenMessage() {
         String message = "Message";
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         uiMessenger.setPrintStream(new PrintStream(outputStream));
@@ -49,4 +58,16 @@ public class UIMessengerTest {
         assertEquals(message, uiMessenger.printMessage(message));
     }
 
+    @Test(dataProvider = "playerInputData")
+    public void takeCharacterSequenceExpectTrue(String playerInput) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        uiMessenger.setPrintStream(new PrintStream(out));
+
+        uiMessenger.printMessage(playerInput);
+
+        String whatIsInConsole = out.toString();
+        String whatShouldBePrinted = playerInput + System.getProperty("line.separator");
+
+        assertEquals(whatIsInConsole, whatShouldBePrinted);
+    }
 }

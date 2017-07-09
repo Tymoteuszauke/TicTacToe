@@ -1,6 +1,7 @@
 package com.bratek;
 
 import com.bratek.communication.UIMessenger;
+import com.bratek.game.Game;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

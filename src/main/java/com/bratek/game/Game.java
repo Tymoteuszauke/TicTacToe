@@ -1,14 +1,17 @@
-package com.bratek;
+package com.bratek.game;
 
 import com.bratek.board.Board;
 import com.bratek.communication.Messenger;
 import com.bratek.communication.UIMessenger;
-import com.bratek.game.ScoreListener;
 import com.bratek.player.Player;
 import com.bratek.player.PlayersScoreboard;
-import com.bratek.utils.WinUtil;
+import com.bratek.player.ScoreListener;
+import com.bratek.utils.MessageUtil;
+import com.bratek.utils.TurnUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 
 /**
  * Created by bratek on 29.06.17.
@@ -39,16 +42,8 @@ public class Game implements ScoreListener {
         currentPlayer = players.get(0);
 
         while (gameContinue) {
-            message(String.format("...%s your move...", currentPlayer.getName()));
-            message(board.toString());
-            int chosenPosition = messenger.takeDigit();
-            board.draw(currentPlayer.getSign(), chosenPosition);
 
-            if (WinUtil.winnerFound(board, chosenPosition, 3)) {
-                playersScoreboard.addPoint(currentPlayer);
-                playersScoreboard.printScore();
-                board.clear();
-            }
+            TurnUtil.makeTurn(currentPlayer, playersScoreboard, board);
 
             currentPlayer = players.stream()
                     .filter(data -> currentPlayer.getPosition() != data.getPosition())
@@ -78,19 +73,31 @@ public class Game implements ScoreListener {
                     sign = "X";
                 }
             }
-            players.add(new Player.PlayerBuilder()
-                    .setSign(sign)
-                    .name(name)
-                    .positionOrder(players.size() + 1).build());
+            players.add(createPlayer(sign, name));
         }
 
-        message("Set board size: ");
+        boolean createsBoard = true;
+
+        while (createsBoard) {
+            try {
+                takeBoardDataAndCreate();
+                createsBoard = false;
+            } catch (NumberFormatException e) {
+                message("Must be a number");
+                takeBoardDataAndCreate();
+            }
+        }
+    }
+
+    private void takeBoardDataAndCreate() {
+        message("...Set board size... ");
         message("Board height: ");
         int height = messenger.takeDigit();
         message("Board width");
         int width = messenger.takeDigit();
         message("...Preparing board...");
         prepareBoard(height, width);
+
     }
 
     public void prepareBoard(int height, int width) {
@@ -102,9 +109,7 @@ public class Game implements ScoreListener {
         this.messenger = messenger;
     }
 
-    public void message(String message){
-        messenger.printMessage(message);
-    }
+
 
     public Player createPlayer(String sign, String name) {
         if (!isSign(sign)){
@@ -117,17 +122,28 @@ public class Game implements ScoreListener {
                 .build();
     }
 
+
+
     private boolean isSign(String sign) {
-        return sign.equals("O") || !sign.equals("X");
+        return sign.equals("O") || sign.equals("X");
     }
 
     public String takePlayerSignInput() {
-        return messenger.takePlayerSign();
+        try {
+            return messenger.takePlayerSign();
+        } catch (InputMismatchException e) {
+            message(e.getMessage());
+            return messenger.takePlayerSign();
+        }
+    }
+
+    private String message(String message) {
+        return MessageUtil.Instance.message(message);
     }
 
     @Override
-    public boolean minGamesPrompt() {
+    public void minGamesPrompt() {
         gameContinue = false;
-        return false;
     }
+
 }

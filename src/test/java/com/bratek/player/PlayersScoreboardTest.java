@@ -65,9 +65,6 @@ public class PlayersScoreboardTest {
 
     @Test
     public void testPrintScore() {
-
-        //TODO this test is not yet complete
-
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
 

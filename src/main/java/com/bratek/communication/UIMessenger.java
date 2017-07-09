@@ -21,7 +21,6 @@ public class UIMessenger implements Messenger{
     private InputStream inputStream;
 
     public UIMessenger() {
-
     }
 
     public UIMessenger(PrintStream printStream, InputStream inputStream) {
@@ -68,10 +67,8 @@ public class UIMessenger implements Messenger{
         return command;
     }
 
-    public int takeDigit() {
+    public int takeDigit() throws NumberFormatException {
         Scanner scanner = new Scanner(inputStream);
-        //TODO error secure
-
         return Integer.parseInt(scanner.nextLine());
     }
 

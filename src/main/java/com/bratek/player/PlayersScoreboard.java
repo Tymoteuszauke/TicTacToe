@@ -1,7 +1,5 @@
 package com.bratek.player;
 
-import com.bratek.game.ScoreListener;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
