@@ -8,16 +8,16 @@ import com.bratek.player.Player;
 import com.bratek.player.PlayersScoreboard;
 import com.bratek.player.ScoreListener;
 import com.bratek.utils.TurnUtil;
+import com.sun.java_cup.internal.runtime.Scanner;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
 /**
- * Created by bratek on 29.06.17.
+ * Created by Mateusz on 09.07.2017.
  */
-public class Game implements ScoreListener {
-
+public class TcpGame implements ScoreListener {
     private final int MAX_PLAYERS = 2;
 
     private List<Player> players;
@@ -33,12 +33,12 @@ public class Game implements ScoreListener {
 //        this.messenger = messenger;
 //    }
 
-    public Game(UIMessenger messenger) {
+    public TcpGame(UIMessenger messenger) {
         players = new ArrayList<>();
         this.messenger = messenger;
     }
 
-    public Game(TcpMessenger messenger) {
+    public TcpGame(TcpMessenger messenger) {
         players = new ArrayList<>();
         this.messenger = messenger;
     }
@@ -86,17 +86,9 @@ public class Game implements ScoreListener {
             players.add(createPlayer(sign, name));
         }
 
-        boolean createsBoard = true;
 
-        while (createsBoard) {
-            try {
-                takeBoardDataAndCreate();
-                createsBoard = false;
-            } catch (NumberFormatException e) {
-                message("Must be a number");
-                takeBoardDataAndCreate();
-            }
-        }
+        takeBoardDataAndCreate();
+
     }
 
     private void takeBoardDataAndCreate() {
@@ -148,5 +140,4 @@ public class Game implements ScoreListener {
     public void minGamesPrompt() {
         gameContinue = false;
     }
-
 }

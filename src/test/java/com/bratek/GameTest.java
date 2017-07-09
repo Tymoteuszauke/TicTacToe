@@ -2,6 +2,7 @@ package com.bratek;
 
 import com.bratek.communication.UIMessenger;
 import com.bratek.game.Game;
+import com.bratek.utils.MessageUtil;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -24,6 +25,7 @@ public class GameTest {
     @BeforeTest
     public void prepare(){
         this.uiMessenger = new UIMessenger(System.out, System.in);
+        MessageUtil.Instance.setMessenger(uiMessenger);
         this.game = new Game(uiMessenger);
     }
 
@@ -92,16 +94,9 @@ public class GameTest {
     public void shouldThrowAnExceptionIfCommandIsIncorrect(String command) {
 
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
-        game.takePlayerSignInput();
+        uiMessenger.takePlayerSign();
     }
 
-    //TODO move to BoardClassTest
-//    @Test(dataProvider = "sizeOfBoard")
-//    public void shouldCreateEmptyBoardWithGivenSize(int vertical, int horizontal){
-//        //game.createHashBoard(vertical * horizontal);
-//
-//        //assertEquals(vertical * horizontal, game.getBoard().size());
-//    }
 
     @DataProvider
     public static Object[][] playersCreationData(){

@@ -32,6 +32,8 @@ public class PlayersScoreboardTest {
     @BeforeMethod()
     public void setupPlayers() {
 
+
+
         players.add(new Player.PlayerBuilder()
                 .name("Tymek")
                 .positionOrder(1)
@@ -46,6 +48,9 @@ public class PlayersScoreboardTest {
 
         playersScoreboard = new PlayersScoreboard();
         playersScoreboard.providePlayers(players);
+        playersScoreboard.setScoreListener(() -> {
+
+        });
     }
 
     @AfterMethod

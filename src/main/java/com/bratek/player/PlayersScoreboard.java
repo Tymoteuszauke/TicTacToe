@@ -1,5 +1,7 @@
 package com.bratek.player;
 
+import com.bratek.utils.MessageUtil;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +37,8 @@ public class PlayersScoreboard {
     }
 
     public void printScore() {
-        System.out.println("Amount of games played: " + gamesCounter);
-        System.out.println(players);
+        MessageUtil.Instance.message("Amount of games played: " + gamesCounter);
+        MessageUtil.Instance.message(players.toString());
     }
 
     public void addPoint(Player currentPlayer) {

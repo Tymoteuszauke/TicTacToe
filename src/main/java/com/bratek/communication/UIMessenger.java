@@ -5,6 +5,7 @@ import com.bratek.board.Board;
 import javax.lang.model.SourceVersion;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ import java.util.Scanner;
 /*
 * How to write TDD for this class or better... How to write TDD if I have Interfaces.
 * */
-public class UIMessenger implements Messenger{
+public class UIMessenger implements Messenger {
     private PrintStream printStream;
     private InputStream inputStream;
 
