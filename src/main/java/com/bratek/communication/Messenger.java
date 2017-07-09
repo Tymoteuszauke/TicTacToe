@@ -9,10 +9,11 @@ public interface Messenger {
 
     String printMessage(String message);
 
-    String takePlayerSign();
+    String takePlayerSymbol();
 
     int takeDigit();
 
-    String takeCharacterSequence();
+    int takePlayerMove();
 
+    String takePlayerName();
 }

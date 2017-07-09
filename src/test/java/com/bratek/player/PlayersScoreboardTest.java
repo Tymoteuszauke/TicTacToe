@@ -1,5 +1,7 @@
 package com.bratek.player;
 
+import com.bratek.communication.Messenger;
+import com.bratek.communication.UIMessenger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -72,6 +74,9 @@ public class PlayersScoreboardTest {
     public void testPrintScore() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
+
+        Messenger messenger = new UIMessenger(System.out, System.in);
+        playersScoreboard.setMessenger(messenger);
 
         playersScoreboard.addPoint(players.get(0));
         playersScoreboard.addPoint(players.get(0));

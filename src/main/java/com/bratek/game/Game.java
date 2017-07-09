@@ -7,7 +7,6 @@ import com.bratek.communication.UIMessenger;
 import com.bratek.player.Player;
 import com.bratek.player.PlayersScoreboard;
 import com.bratek.player.ScoreListener;
-import com.bratek.utils.TurnUtil;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -27,11 +26,6 @@ public class Game implements ScoreListener {
     private PlayersScoreboard playersScoreboard;
 
     private boolean gameContinue = true;
-
-//    public Game(UIMessenger messenger){
-//        players = new ArrayList<>();
-//        this.messenger = messenger;
-//    }
 
     public Game(UIMessenger messenger) {
         players = new ArrayList<>();
@@ -53,14 +47,19 @@ public class Game implements ScoreListener {
 
         while (gameContinue) {
 
-            TurnUtil.makeTurn(currentPlayer, playersScoreboard, board);
+            new Turn.TurnBuilder()
+                    .player(currentPlayer)
+                    .board(board)
+                    .messenger(messenger)
+                    .playersScoreboard(playersScoreboard)
+                    .build()
+                    .makeTurn();
 
             currentPlayer = players.stream()
                     .filter(data -> currentPlayer.getPosition() != data.getPosition())
                     .findAny()
                     .get();
         }
-
     }
 
     public void gamePreparation() {
@@ -69,7 +68,7 @@ public class Game implements ScoreListener {
         //TODO create another way of player creation sequence
         for (int i = 0; i < MAX_PLAYERS; i++) {
             message(String.format("Player %d provide name", i + 1));
-            String name = messenger.takeCharacterSequence();
+            String name = messenger.takePlayerName();
             String sign = "";
 
             if (players.size() == 0) {
@@ -85,17 +84,11 @@ public class Game implements ScoreListener {
             }
             players.add(createPlayer(sign, name));
         }
-
-        boolean createsBoard = true;
-
-        while (createsBoard) {
-            try {
-                takeBoardDataAndCreate();
-                createsBoard = false;
-            } catch (NumberFormatException e) {
-                message("Must be a number");
-                takeBoardDataAndCreate();
-            }
+        try {
+            takeBoardDataAndCreate();
+        } catch (NumberFormatException e) {
+            message("Must be a number");
+            takeBoardDataAndCreate();
         }
     }
 
@@ -115,10 +108,10 @@ public class Game implements ScoreListener {
     }
 
 
-
     public Player createPlayer(String sign, String name) {
-        if (!isSign(sign)){
-            throw new InputMismatchException("This is incorrect sign!");        }
+        if (!isSign(sign)) {
+            throw new InputMismatchException("This is incorrect sign!");
+        }
 
         return new Player.PlayerBuilder()
                 .positionOrder(players.size() + 1)
@@ -133,10 +126,10 @@ public class Game implements ScoreListener {
 
     public String takePlayerSignInput() {
         try {
-            return messenger.takePlayerSign();
+            return messenger.takePlayerSymbol();
         } catch (InputMismatchException e) {
             message(e.getMessage());
-            return messenger.takePlayerSign();
+            return messenger.takePlayerSymbol();
         }
     }
 

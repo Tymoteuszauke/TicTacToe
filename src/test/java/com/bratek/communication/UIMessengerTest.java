@@ -46,7 +46,7 @@ public class UIMessengerTest {
     public void shouldReturnGivenCommand(String command, String result) {
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
 
-        assertEquals(uiMessenger.takePlayerSign(), command);
+        assertEquals(uiMessenger.takePlayerSymbol(), command);
     }
 
     @Test

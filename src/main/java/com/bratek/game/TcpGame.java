@@ -2,13 +2,9 @@ package com.bratek.game;
 
 import com.bratek.board.Board;
 import com.bratek.communication.Messenger;
-import com.bratek.communication.TcpMessenger;
-import com.bratek.communication.UIMessenger;
 import com.bratek.player.Player;
 import com.bratek.player.PlayersScoreboard;
 import com.bratek.player.ScoreListener;
-import com.bratek.utils.TurnUtil;
-import com.sun.java_cup.internal.runtime.Scanner;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -26,19 +22,9 @@ public class TcpGame implements ScoreListener {
     private Player currentPlayer;
     private PlayersScoreboard playersScoreboard;
 
-    private boolean gameContinue = true;
+    private boolean gameContinues = true;
 
-//    public Game(UIMessenger messenger){
-//        players = new ArrayList<>();
-//        this.messenger = messenger;
-//    }
-
-    public TcpGame(UIMessenger messenger) {
-        players = new ArrayList<>();
-        this.messenger = messenger;
-    }
-
-    public TcpGame(TcpMessenger messenger) {
+    public TcpGame(Messenger messenger) {
         players = new ArrayList<>();
         this.messenger = messenger;
     }
@@ -47,13 +33,20 @@ public class TcpGame implements ScoreListener {
         gamePreparation();
         playersScoreboard = new PlayersScoreboard();
         playersScoreboard.providePlayers(players);
+        playersScoreboard.setMessenger(messenger);
         playersScoreboard.setScoreListener(this);
 
         currentPlayer = players.get(0);
 
-        while (gameContinue) {
+        while (gameContinues) {
 
-            TurnUtil.makeTurn(currentPlayer, playersScoreboard, board);
+            new Turn.TurnBuilder()
+                    .player(currentPlayer)
+                    .board(board)
+                    .messenger(messenger)
+                    .playersScoreboard(playersScoreboard)
+                    .build()
+                    .makeTurn();
 
             currentPlayer = players.stream()
                     .filter(data -> currentPlayer.getPosition() != data.getPosition())
@@ -69,7 +62,7 @@ public class TcpGame implements ScoreListener {
         //TODO create another way of player creation sequence
         for (int i = 0; i < MAX_PLAYERS; i++) {
             message(String.format("Player %d provide name", i + 1));
-            String name = messenger.takeCharacterSequence();
+            String name = messenger.takePlayerName();
             String sign = "";
 
             if (players.size() == 0) {
@@ -85,7 +78,6 @@ public class TcpGame implements ScoreListener {
             }
             players.add(createPlayer(sign, name));
         }
-
 
         takeBoardDataAndCreate();
 
@@ -106,8 +98,6 @@ public class TcpGame implements ScoreListener {
         this.board = new Board(height, width);
     }
 
-
-
     public Player createPlayer(String sign, String name) {
         if (!isSign(sign)){
             throw new InputMismatchException("This is incorrect sign!");        }
@@ -125,10 +115,10 @@ public class TcpGame implements ScoreListener {
 
     public String takePlayerSignInput() {
         try {
-            return messenger.takePlayerSign();
+            return messenger.takePlayerSymbol();
         } catch (InputMismatchException e) {
             message(e.getMessage());
-            return messenger.takePlayerSign();
+            return messenger.takePlayerSymbol();
         }
     }
 
@@ -136,8 +126,7 @@ public class TcpGame implements ScoreListener {
         return messenger.printMessage(message);
     }
 
-    @Override
     public void minGamesPrompt() {
-        gameContinue = false;
+        gameContinues = false;
     }
 }

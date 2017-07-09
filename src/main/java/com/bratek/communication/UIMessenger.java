@@ -58,7 +58,7 @@ public class UIMessenger implements Messenger {
         return board.toString();
     }
 
-    public String takePlayerSign() {
+    public String takePlayerSymbol() {
         Scanner scanner = new Scanner(inputStream);
         String command = scanner.nextLine();
 
@@ -73,7 +73,13 @@ public class UIMessenger implements Messenger {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public String takeCharacterSequence() {
+    @Override
+    public int takePlayerMove() throws NumberFormatException {
+        Scanner scanner = new Scanner(inputStream);
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public String takePlayerName() {
         Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }

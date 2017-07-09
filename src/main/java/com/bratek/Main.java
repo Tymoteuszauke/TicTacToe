@@ -28,7 +28,7 @@ public class Main {
 
                 socket = serverSocket.accept();
 
-                g.setSocketPlayer2(socket);
+                g.setSocketPlayerTwo(socket);
 
 
                 //Thread.sleep(10_000);

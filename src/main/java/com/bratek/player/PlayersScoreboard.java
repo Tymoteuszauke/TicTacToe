@@ -1,6 +1,6 @@
 package com.bratek.player;
 
-import com.bratek.utils.MessageUtil;
+import com.bratek.communication.Messenger;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,8 +15,8 @@ public class PlayersScoreboard {
 
     private Map<String, Integer> players = new HashMap<>();
     private int gamesCounter;
-
     private ScoreListener scoreListener;
+    private Messenger messenger;
 
     public boolean minimumGamesEncountered() {
         return gamesCounter == 3;
@@ -37,8 +37,8 @@ public class PlayersScoreboard {
     }
 
     public void printScore() {
-        MessageUtil.Instance.message("Amount of games played: " + gamesCounter);
-        MessageUtil.Instance.message(players.toString());
+        messenger.printMessage("Amount of games played: " + gamesCounter);
+        messenger.printMessage(players.toString());
     }
 
     public void addPoint(Player currentPlayer) {
@@ -47,6 +47,10 @@ public class PlayersScoreboard {
         players.replace(currentPlayer.getName(), currentScore + 1);
 
         if (minimumGamesEncountered()) scoreListener.minGamesPrompt();
+    }
+
+    public void setMessenger(Messenger messenger) {
+        this.messenger = messenger;
     }
 
     public void setScoreListener(ScoreListener scoreListener) {

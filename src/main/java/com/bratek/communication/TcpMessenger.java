@@ -1,7 +1,5 @@
 package com.bratek.communication;
 
-import com.bratek.utils.MessageUtil;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -49,7 +47,7 @@ public class TcpMessenger implements Messenger {
     }
 
     @Override
-    public String takePlayerSign() {
+    public String takePlayerSymbol() {
 
         try {
             InputStream inputStream = socketPlayerOne.getInputStream();
@@ -75,7 +73,6 @@ public class TcpMessenger implements Messenger {
             Scanner scanner = new Scanner(inputStream);
 
             int position = Integer.parseInt(scanner.nextLine());
-            changePlayer();
             return position;
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +81,22 @@ public class TcpMessenger implements Messenger {
     }
 
     @Override
-    public String takeCharacterSequence() {
+    public int takePlayerMove() {
+        try {
+            changePlayer();
+            InputStream inputStream = currentPlayer.getInputStream();
+            Scanner scanner = new Scanner(inputStream);
+
+            int position = Integer.parseInt(scanner.nextLine());
+            return position;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public String takePlayerName() {
 
         try {
             InputStream inputStream = currentPlayer.getInputStream();
@@ -95,7 +107,6 @@ public class TcpMessenger implements Messenger {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         return null;
     }

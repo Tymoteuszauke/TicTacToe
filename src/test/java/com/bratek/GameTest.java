@@ -2,7 +2,6 @@ package com.bratek;
 
 import com.bratek.communication.UIMessenger;
 import com.bratek.game.Game;
-import com.bratek.utils.MessageUtil;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,7 +10,6 @@ import java.io.ByteArrayInputStream;
 import java.util.InputMismatchException;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 /**
  * Created by bratek on 29.06.17.
@@ -25,7 +23,6 @@ public class GameTest {
     @BeforeTest
     public void prepare(){
         this.uiMessenger = new UIMessenger(System.out, System.in);
-        MessageUtil.Instance.setMessenger(uiMessenger);
         this.game = new Game(uiMessenger);
     }
 
@@ -94,7 +91,7 @@ public class GameTest {
     public void shouldThrowAnExceptionIfCommandIsIncorrect(String command) {
 
         uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
-        uiMessenger.takePlayerSign();
+        uiMessenger.takePlayerSymbol();
     }
 
 
