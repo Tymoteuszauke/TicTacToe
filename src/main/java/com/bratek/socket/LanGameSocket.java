@@ -10,12 +10,12 @@ import java.net.Socket;
 /**
  * Created by Mateusz on 09.07.2017.
  */
-public class GameSocket implements Runnable, SocketType {
+public class LanGameSocket implements Runnable, SocketType {
 
     private Socket socketPlayerOne;
     private Socket socketPlayerTwo;
 
-    public GameSocket(Socket socket) {
+    public LanGameSocket(Socket socket) {
         super();
         this.socketPlayerOne = socket;
     }

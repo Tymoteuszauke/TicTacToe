@@ -2,7 +2,7 @@ package com.bratek;
 
 
 
-import com.bratek.socket.GameSocket;
+import com.bratek.socket.LanGameSocket;
 import com.bratek.socket.HotSeatSocket;
 import com.bratek.socket.SocketType;
 
@@ -38,13 +38,13 @@ public class Main {
             Thread thread = new Thread(hotSeatSocket);
             thread.start();
         } else {
-            GameSocket g = new GameSocket(socket);
-            Thread thread = new Thread(g);
+            LanGameSocket lanGameSocket = new LanGameSocket(socket);
+            Thread thread = new Thread(lanGameSocket);
             thread.start();
 
             socket = serverSocket.accept();
 
-            g.setSocketPlayerTwo(socket);
+            lanGameSocket.setSocketPlayerTwo(socket);
         }
     }
 
@@ -62,11 +62,10 @@ public class Main {
 
         switch (gameType) {
             case "1": return new HotSeatSocket(socket);
-            case "2": return new GameSocket(socket);
+            case "2": return new LanGameSocket(socket);
             default:
                 printStream.println("Incorrect Number");
                 getGameType(socket);
-
         }
         return null;
     }

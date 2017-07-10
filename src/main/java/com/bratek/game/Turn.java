@@ -74,7 +74,6 @@ public class Turn {
                 playersScoreboard.printScore();
                 board.clear();
             }
-
         }
     }
 }
