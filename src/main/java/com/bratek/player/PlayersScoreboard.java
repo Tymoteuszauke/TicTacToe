@@ -15,7 +15,7 @@ public class PlayersScoreboard {
 
     private Map<String, Integer> players = new HashMap<>();
     private int gamesCounter;
-    private ScoreListener scoreListener;
+    private ScoreBoardListener scoreBoardListener;
     private Messenger messenger;
     private int winningSequence;
 
@@ -48,7 +48,7 @@ public class PlayersScoreboard {
         players.replace(currentPlayer.getName(), currentScore + 1);
 
         if (minimumGamesEncountered()) {
-            scoreListener.minGamesPrompt();
+            scoreBoardListener.minGamesPrompt();
         }
     }
 
@@ -56,8 +56,8 @@ public class PlayersScoreboard {
         this.messenger = messenger;
     }
 
-    public void setScoreListener(ScoreListener scoreListener) {
-        this.scoreListener = scoreListener;
+    public void setScoreBoardListener(ScoreBoardListener scoreBoardListener) {
+        this.scoreBoardListener = scoreBoardListener;
     }
 
     public void setWinningSequence(int winningSequence) {

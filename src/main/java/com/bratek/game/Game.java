@@ -4,7 +4,7 @@ import com.bratek.board.Board;
 import com.bratek.communication.Messenger;
 import com.bratek.player.Player;
 import com.bratek.player.PlayersScoreboard;
-import com.bratek.player.ScoreListener;
+import com.bratek.player.ScoreBoardListener;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -13,14 +13,13 @@ import java.util.List;
 /**
  * Created by Mateusz on 09.07.2017.
  */
-public class Game implements ScoreListener {
+public class Game implements ScoreBoardListener {
     private final int MAX_PLAYERS = 2;
 
     private List<Player> players;
     private Messenger messenger;
     private Board board;
     private Player currentPlayer;
-    private PlayersScoreboard playersScoreboard;
 
     private boolean gameContinues = true;
 
@@ -31,10 +30,10 @@ public class Game implements ScoreListener {
 
     public void start() {
         gamePreparation();
-        playersScoreboard = new PlayersScoreboard();
+        PlayersScoreboard playersScoreboard = new PlayersScoreboard();
         playersScoreboard.providePlayers(players);
         playersScoreboard.setMessenger(messenger);
-        playersScoreboard.setScoreListener(this);
+        playersScoreboard.setScoreBoardListener(this);
 
         currentPlayer = players.get(0);
 
@@ -50,7 +49,6 @@ public class Game implements ScoreListener {
         }
 
         playersScoreboard.setWinningSequence(winningSequence);
-
 
         while (gameContinues) {
 
@@ -90,8 +88,6 @@ public class Game implements ScoreListener {
                     }
                     if (isSign(sign)) continue;
                 }
-
-
             } else {
                 if (players.get(0).getSign().equals("X")) {
                     sign = "O";
@@ -99,12 +95,10 @@ public class Game implements ScoreListener {
                     sign = "X";
                 }
             }
-
             players.add(createPlayer(sign, name));
         }
 
         takeBoardDataAndCreate();
-
     }
 
     private void takeBoardDataAndCreate() {
@@ -125,10 +119,8 @@ public class Game implements ScoreListener {
                 break;
             }
         }
-
         message("...Preparing board...");
         prepareBoard(height, width);
-
     }
 
     public void prepareBoard(int height, int width) {
@@ -143,21 +135,10 @@ public class Game implements ScoreListener {
                 .build();
     }
 
-    private boolean isSign(String sign) {
-        return sign.equals("O") || sign.equals("X");
-    }
-
     public String takePlayerSymbolInput() throws InputMismatchException {
 
         String symbol = messenger.takePlayerSymbol();
-//            if (!isSign(symbol)) throw new InputMismatchException();
-
         return symbol;
-
-    }
-
-    private String message(String message) {
-        return messenger.printMessage(message);
     }
 
     public void minGamesPrompt() {
@@ -179,4 +160,13 @@ public class Game implements ScoreListener {
                 minGamesPrompt();
         }
     }
+
+    private boolean isSign(String sign) {
+        return sign.equals("O") || sign.equals("X");
+    }
+
+    private String message(String message) {
+        return messenger.printMessage(message);
+    }
+
 }

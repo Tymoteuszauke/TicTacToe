@@ -120,4 +120,12 @@ public class BoardFieldTest {
         assertEquals(whatIsInConsole, whatShouldBePrinted);
     }
 
+    @Test(dataProvider = "boardFieldSymbolData")
+    public void isTakenTestExpectTrue(String symbol) {
+        BoardField boardField = new BoardField(10);
+        boardField.setSymbol(symbol);
+
+        assertEquals(boardField.isTaken(), true);
+    }
+
 }

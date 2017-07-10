@@ -7,7 +7,6 @@ public class BoardField {
     private String symbol;
     private int fieldNumber;
 
-
     BoardField(int fieldNumber) {
         this.fieldNumber = fieldNumber;
         symbol = String.valueOf(fieldNumber);

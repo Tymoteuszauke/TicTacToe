@@ -48,7 +48,6 @@ public class WinUtilTest {
     @Test
     public void diagonalWinnerExpectTrue() {
 
-        //TODO work on diagonal algorithm
         board.draw("X", 50);
         board.draw("X", 61);
         board.draw("X", 72);
@@ -56,14 +55,14 @@ public class WinUtilTest {
         assertEquals(WinUtil.winnerFound(board, 61, 3), false);
     }
 
+    @Test
     public void antiDiagonalWinnerExpectTrue() {
 
-        //TODO work on antidiagonal algorithm
-        board.draw("X", 16);
+        board.draw("X", 18);
         board.draw("X", 27);
-        board.draw("X", 38);
+        board.draw("X", 36);
 
-//        assertEquals(WinUtil.winnerFound(board, board.get));
+        assertEquals(WinUtil.winnerFound(board, 27, 3), true);
     }
 
     @AfterMethod

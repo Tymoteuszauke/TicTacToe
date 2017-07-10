@@ -6,8 +6,5 @@ Open terminal (Linux preferred) and use telnet to connect to the game. Default p
 
 HotSeat and Multiplayer game type supported.
 
-You can win only vertically or horizontally.
-
-
 What is not implemented:
     - Locale support

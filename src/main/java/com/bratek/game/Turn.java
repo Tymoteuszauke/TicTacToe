@@ -54,7 +54,6 @@ public class Turn {
             messenger.printMessage(board.toString());
             int chosenPosition = -1;
 
-
             boolean goAgain = true;
             do {
                 try {
