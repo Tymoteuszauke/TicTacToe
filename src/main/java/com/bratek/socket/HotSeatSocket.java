@@ -2,8 +2,6 @@ package com.bratek.socket;
 
 import com.bratek.communication.UIMessenger;
 import com.bratek.game.Game;
-import com.bratek.locale.ApiStrings;
-import com.bratek.locale.Locale;
 
 import java.io.IOException;
 import java.io.InputStream;

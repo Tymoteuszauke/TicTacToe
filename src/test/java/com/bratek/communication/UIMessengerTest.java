@@ -19,6 +19,16 @@ public class UIMessengerTest {
     private UIMessenger uiMessenger;
 
     @DataProvider
+    public static Object[][] playerInputDigitsData() {
+        return new Object[][] {
+                {10},
+                {20},
+                {10000},
+                {1000000}
+        };
+    }
+
+    @DataProvider
     public static Object[][] playerInputData() {
         return new Object[][] {
                 {"Tymek"},
@@ -69,5 +79,21 @@ public class UIMessengerTest {
         String whatShouldBePrinted = playerInput + System.getProperty("line.separator");
 
         assertEquals(whatIsInConsole, whatShouldBePrinted);
+    }
+
+    @Test(dataProvider = "playerInputDigitsData")
+    public void takeDigitTestExpectTrue(int digit) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        uiMessenger.setPrintStream(new PrintStream(out));
+        uiMessenger.setInputStream(new ByteArrayInputStream(String.valueOf(digit).getBytes()));
+        assertEquals(uiMessenger.takeDigit(), digit);
+    }
+
+    @Test(dataProvider = "playerInputData", expectedExceptions = NumberFormatException.class)
+    public void takeDigitTestExpectNumberFormatException(String digit) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        uiMessenger.setPrintStream(new PrintStream(out));
+        uiMessenger.setInputStream(new ByteArrayInputStream(digit.getBytes()));
+        uiMessenger.takeDigit();
     }
 }

@@ -2,7 +2,6 @@ package com.bratek.socket;
 
 import com.bratek.communication.TcpMessenger;
 import com.bratek.game.Game;
-import com.bratek.locale.Locale;
 
 import java.io.IOException;
 import java.io.PrintStream;
