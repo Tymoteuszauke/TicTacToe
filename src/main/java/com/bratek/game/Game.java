@@ -38,6 +38,20 @@ public class Game implements ScoreListener {
 
         currentPlayer = players.get(0);
 
+        message("Set winning sequence");
+        int winningSequence;
+        while (true) {
+            winningSequence = messenger.takeDigit();
+            if (winningSequence > board.getBoardHeight() || winningSequence > board.getBoardWidth()) {
+                message("You cannot set wwinning sequence bigger than board width or height!");
+                continue;
+            }
+            break;
+        }
+
+        playersScoreboard.setWinningSequence(winningSequence);
+
+
         while (gameContinues) {
 
             new Turn.TurnBuilder()
@@ -62,7 +76,7 @@ public class Game implements ScoreListener {
         //TODO create another way of player creation sequence
         for (int i = 0; i < MAX_PLAYERS; i++) {
             message(String.format("Player %d provide name", i + 1));
-            String name = messenger.takePlayerName();
+            String name = messenger.takeCharacterSequence();
             String sign = "";
 
             if (players.size() == 0) {
@@ -79,7 +93,6 @@ public class Game implements ScoreListener {
 
 
             } else {
-                //TODO redo this, please my eyes are bleeding
                 if (players.get(0).getSign().equals("X")) {
                     sign = "O";
                 } else {
@@ -96,11 +109,23 @@ public class Game implements ScoreListener {
 
     private void takeBoardDataAndCreate() {
 
+        int height;
+        int width;
         message("...Set board size... ");
-        message("Board height: ");
-        int height = messenger.takeDigit();
-        message("Board width");
-        int width = messenger.takeDigit();
+        while (true) {
+            message("Board height: ");
+            height = messenger.takeDigit();
+            message("Board width");
+            width = messenger.takeDigit();
+
+            if (height < 3 || width < 3) {
+                messenger.printMessage("You minimum board size: 3x3");
+                continue;
+            } else {
+                break;
+            }
+        }
+
         message("...Preparing board...");
         prepareBoard(height, width);
 
@@ -136,6 +161,22 @@ public class Game implements ScoreListener {
     }
 
     public void minGamesPrompt() {
-        gameContinues = false;
+        message("Do you wish to continue? \n" +
+                "1. Yes \n" +
+                "2. No");
+
+        String decision = messenger.takeCharacterSequence();
+
+        switch (decision) {
+            case "1":
+                gameContinues = true;
+                break;
+            case "2":
+                gameContinues = false;
+                break;
+            default:
+                message("Bad decision");
+                minGamesPrompt();
+        }
     }
 }

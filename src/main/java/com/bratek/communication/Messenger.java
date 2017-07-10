@@ -15,5 +15,5 @@ public interface Messenger {
 
     int takePlayerMove();
 
-    String takePlayerName();
+    String takeCharacterSequence();
 }

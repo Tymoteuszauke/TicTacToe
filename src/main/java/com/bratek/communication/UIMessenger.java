@@ -79,7 +79,7 @@ public class UIMessenger implements Messenger {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public String takePlayerName() {
+    public String takeCharacterSequence() {
         Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }

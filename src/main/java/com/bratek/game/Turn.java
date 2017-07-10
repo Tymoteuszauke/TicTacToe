@@ -70,7 +70,7 @@ public class Turn {
                 goAgain = false;
             } while (goAgain);
 
-            if (WinUtil.winnerFound(board, chosenPosition, 3)) {
+            if (WinUtil.winnerFound(board, chosenPosition, playersScoreboard.getWinningSequence())) {
                 playersScoreboard.addPoint(currentPlayer);
                 playersScoreboard.printScore();
                 board.clear();

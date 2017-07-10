@@ -17,6 +17,7 @@ public class PlayersScoreboard {
     private int gamesCounter;
     private ScoreListener scoreListener;
     private Messenger messenger;
+    private int winningSequence;
 
     boolean minimumGamesEncountered() {
         return gamesCounter == 3;
@@ -46,7 +47,10 @@ public class PlayersScoreboard {
         int currentScore = players.get(currentPlayer.getName());
         players.replace(currentPlayer.getName(), currentScore + 1);
 
-        if (minimumGamesEncountered()) scoreListener.minGamesPrompt();
+        if (minimumGamesEncountered()) {
+            scoreListener.minGamesPrompt();
+            gamesCounter = 0;
+        }
     }
 
     public void setMessenger(Messenger messenger) {
@@ -57,5 +61,12 @@ public class PlayersScoreboard {
         this.scoreListener = scoreListener;
     }
 
+    public void setWinningSequence(int winningSequence) {
+        this.winningSequence = winningSequence;
+    }
+
+    public int getWinningSequence() {
+        return winningSequence;
+    }
 }
 

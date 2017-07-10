@@ -103,7 +103,7 @@ public class TcpMessenger implements Messenger {
     }
 
     @Override
-    public String takePlayerName() {
+    public String takeCharacterSequence() {
 
         try {
             InputStream inputStream = currentPlayer.getInputStream();
