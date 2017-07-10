@@ -27,9 +27,10 @@ public class WinUtil {
         int currentBoardFieldPosition = boardField.getFieldNumber();
         int currentLineHead = currentBoardFieldPosition % board.getBoardWidth();
         int tmp = 0;
+
         for (int i = currentLineHead; i < board.getBoardHeight() * board.getBoardWidth(); i += board.getBoardWidth()) {
 
-            if (!board.get(i).getSign().equals(boardField.getSign())) {
+            if (!board.get(i).getSymbol().equals(boardField.getSymbol())) {
                 tmp = 0;
             } else {
                 tmp ++;
@@ -46,9 +47,10 @@ public class WinUtil {
         int currentBoardFieldPosition = boardField.getFieldNumber();
         int currentLineHead = boardField.getFieldNumber() - currentBoardFieldPosition % board.getBoardWidth();
         int tmp = 0;
+
         for (int i = currentLineHead; i < currentLineHead + board.getBoardWidth(); i++) {
 
-            if (!board.get(i).getSign().equals(boardField.getSign())) {
+            if (!board.get(i).getSymbol().equals(boardField.getSymbol())) {
                 tmp = 0;
             } else {
                 tmp ++;

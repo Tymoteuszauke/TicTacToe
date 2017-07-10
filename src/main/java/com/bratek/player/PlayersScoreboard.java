@@ -18,11 +18,11 @@ public class PlayersScoreboard {
     private ScoreListener scoreListener;
     private Messenger messenger;
 
-    public boolean minimumGamesEncountered() {
+    boolean minimumGamesEncountered() {
         return gamesCounter == 3;
     }
 
-    public int getGamesCounter() {
+    int getGamesCounter() {
         return gamesCounter;
     }
 

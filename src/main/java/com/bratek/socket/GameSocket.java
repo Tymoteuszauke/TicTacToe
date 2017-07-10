@@ -1,7 +1,8 @@
 package com.bratek.socket;
 
 import com.bratek.communication.TcpMessenger;
-import com.bratek.game.TcpGame;
+import com.bratek.game.Game;
+import com.bratek.locale.Locale;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -10,7 +11,7 @@ import java.net.Socket;
 /**
  * Created by Mateusz on 09.07.2017.
  */
-public class GameSocket implements Runnable {
+public class GameSocket implements Runnable, SocketType {
 
     private Socket socketPlayerOne;
     private Socket socketPlayerTwo;
@@ -29,6 +30,7 @@ public class GameSocket implements Runnable {
 
         try {
             PrintStream printStream = new PrintStream(socketPlayerOne.getOutputStream());
+            printStream.println();
             printStream.println("Connected to TicTacToe game server as Player 1");
             printStream.println("Waiting for player 2...");
 
@@ -49,8 +51,7 @@ public class GameSocket implements Runnable {
         }
 
         try (PrintStream printStreamOne = new PrintStream(socketPlayerOne.getOutputStream());
-            PrintStream printStreamTwo = new PrintStream(socketPlayerTwo.getOutputStream())
-            ) {
+            PrintStream printStreamTwo = new PrintStream(socketPlayerTwo.getOutputStream())) {
 
             printStreamTwo.println("Connected to TicTacToe game server as Player 2");
             printStreamOne.println("Player 2 connected!");
@@ -58,7 +59,7 @@ public class GameSocket implements Runnable {
             TcpMessenger messenger = new TcpMessenger(socketPlayerOne, socketPlayerTwo);
             messenger.printMessage("Let's get started !!!");
 
-            TcpGame game = new TcpGame(messenger);
+            Game game = new Game(messenger);
             game.start();
 
         } catch (IOException e) {

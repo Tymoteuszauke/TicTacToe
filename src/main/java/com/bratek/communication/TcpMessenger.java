@@ -1,5 +1,7 @@
 package com.bratek.communication;
 
+import com.bratek.exceptions.AlreadyTakenPositionException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -15,6 +17,8 @@ public class TcpMessenger implements Messenger {
     private Socket socketPlayerTwo;
 
     private Socket currentPlayer;
+
+    boolean isFirst = true;
 
     public TcpMessenger(Socket socketPlayerOne, Socket socketPlayerTwo) {
         this.socketPlayerOne = socketPlayerOne;
@@ -57,7 +61,9 @@ public class TcpMessenger implements Messenger {
             symbol = symbol.toUpperCase();
 
             printStream2.println(String.format("Your symbol is %s", symbol.equals("X") ? "O" : "X"));
+
             changePlayer();
+            isFirst = false;
             return symbol;
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,8 +78,8 @@ public class TcpMessenger implements Messenger {
             InputStream inputStream = currentPlayer.getInputStream();
             Scanner scanner = new Scanner(inputStream);
 
-            int position = Integer.parseInt(scanner.nextLine());
-            return position;
+            int digit = Integer.parseInt(scanner.nextLine());
+            return digit;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,13 +87,14 @@ public class TcpMessenger implements Messenger {
     }
 
     @Override
-    public int takePlayerMove() {
+    public int takePlayerMove() throws NumberFormatException {
         try {
-            changePlayer();
+
             InputStream inputStream = currentPlayer.getInputStream();
             Scanner scanner = new Scanner(inputStream);
 
             int position = Integer.parseInt(scanner.nextLine());
+            changePlayer();
             return position;
         } catch (IOException e) {
             e.printStackTrace();
@@ -103,6 +110,7 @@ public class TcpMessenger implements Messenger {
             Scanner scanner = new Scanner(inputStream);
             String name = scanner.nextLine();
             name = name.toUpperCase();
+            if (!isFirst) changePlayer();
             return name;
         } catch (IOException e) {
             e.printStackTrace();

@@ -60,7 +60,7 @@ public class UIMessenger implements Messenger {
 
     public String takePlayerSymbol() {
         Scanner scanner = new Scanner(inputStream);
-        String command = scanner.nextLine();
+        String command = scanner.nextLine().toUpperCase();
 
         if(!isSign(command)){
             throw new InputMismatchException("Wrong Command");

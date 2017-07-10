@@ -46,7 +46,7 @@ public class Board {
         try {
             if (board.get(position).isTaken())
                 throw new AlreadyTakenPositionException();
-            board.get(position).setSign(playerSign);
+            board.get(position).setSymbol(playerSign);
 
         } catch (IndexOutOfBoundsException e) {
             throw new DrawingBesideBoardException();
