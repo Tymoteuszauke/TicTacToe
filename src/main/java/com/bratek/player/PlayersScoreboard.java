@@ -20,7 +20,7 @@ public class PlayersScoreboard {
     private int winningSequence;
 
     boolean minimumGamesEncountered() {
-        return gamesCounter == 3;
+        return gamesCounter >= 3;
     }
 
     int getGamesCounter() {
@@ -49,7 +49,6 @@ public class PlayersScoreboard {
 
         if (minimumGamesEncountered()) {
             scoreListener.minGamesPrompt();
-            gamesCounter = 0;
         }
     }
 

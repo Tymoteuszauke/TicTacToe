@@ -19,7 +19,7 @@ public class Turn {
 
     private Turn(){}
 
-    public static class TurnBuilder {
+    static class TurnBuilder {
         Turn turn = new Turn();
 
         public TurnBuilder player(Player player) {
