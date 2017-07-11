@@ -92,18 +92,13 @@ public class GameTest {
         };
     }
 
-//    @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectNames")
-//    public void shouldThrowExceptionIfPlayerIsNotValid(String incorrectName, String sign){
-//        uiMessenger.setInputStream(new ByteArrayInputStream(incorrectName.getBytes()));
-//        game.createPlayer(sign, incorrectName);
-//
-//    }
 
-    @Test(dataProvider = "correctCommands")
-    public void shouldReturnPlayerCommand(String command) {
-        uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
-        assertEquals(game.takePlayerSymbolInput(), command);
-    }
+
+//    @Test(dataProvider = "correctCommands")
+//    public void shouldReturnPlayerCommand(String command) {
+//        uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
+//        assertEquals(game.takePlayerSymbolInput(), command);
+//    }
 
     @Test(expectedExceptions = InputMismatchException.class, dataProvider = "incorrectSymbols")
     public void shouldThrowAnExceptionIfCommandIsIncorrect(String command) {

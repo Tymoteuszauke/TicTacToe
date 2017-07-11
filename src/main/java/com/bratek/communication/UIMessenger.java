@@ -29,16 +29,8 @@ public class UIMessenger implements Messenger {
         this.inputStream = inputStream;
     }
 
-    public PrintStream getPrintStream() {
-        return printStream;
-    }
-
     public void setPrintStream(PrintStream printStream) {
         this.printStream = printStream;
-    }
-
-    public InputStream getInputStream() {
-        return inputStream;
     }
 
     public void setInputStream(InputStream inputStream) {

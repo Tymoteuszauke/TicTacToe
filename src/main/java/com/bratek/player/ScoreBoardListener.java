@@ -5,6 +5,5 @@ package com.bratek.player;
  */
 public interface ScoreBoardListener {
 
-    void minGamesPrompt();
-
+    void scoreBoardAnnouncement();
 }

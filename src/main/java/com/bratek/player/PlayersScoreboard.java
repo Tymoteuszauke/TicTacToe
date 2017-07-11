@@ -19,16 +19,19 @@ public class PlayersScoreboard {
     private Messenger messenger;
     private int winningSequence;
 
+    public static PlayersScoreboard prepareGameScoreboard(List<Player> players, Messenger messenger) {
+        PlayersScoreboard playersScoreboard = new PlayersScoreboard();
+        playersScoreboard.providePlayers(players);
+        playersScoreboard.setMessenger(messenger);
+        return playersScoreboard;
+    }
+
     boolean minimumGamesEncountered() {
         return gamesCounter >= 3;
     }
 
     int getGamesCounter() {
         return gamesCounter;
-    }
-
-    public Map<String, Integer> getPlayers() {
-        return Collections.unmodifiableMap(players);
     }
 
     public void providePlayers(List<Player> players) {
@@ -48,7 +51,7 @@ public class PlayersScoreboard {
         players.replace(currentPlayer.getName(), currentScore + 1);
 
         if (minimumGamesEncountered()) {
-            scoreBoardListener.minGamesPrompt();
+            scoreBoardListener.scoreBoardAnnouncement();
         }
     }
 
@@ -66,6 +69,10 @@ public class PlayersScoreboard {
 
     public int getWinningSequence() {
         return winningSequence;
+    }
+
+    Map<String, Integer> getPlayers() {
+        return Collections.unmodifiableMap(players);
     }
 }
 

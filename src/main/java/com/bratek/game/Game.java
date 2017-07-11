@@ -30,25 +30,7 @@ public class Game implements ScoreBoardListener {
 
     public void start() {
         gamePreparation();
-        PlayersScoreboard playersScoreboard = new PlayersScoreboard();
-        playersScoreboard.providePlayers(players);
-        playersScoreboard.setMessenger(messenger);
-        playersScoreboard.setScoreBoardListener(this);
-
-        currentPlayer = players.get(0);
-
-        message("Set winning sequence");
-        int winningSequence;
-        while (true) {
-            winningSequence = messenger.takeDigit();
-            if (winningSequence > board.getBoardHeight() || winningSequence > board.getBoardWidth()) {
-                message("You cannot set wwinning sequence bigger than board width or height!");
-                continue;
-            }
-            break;
-        }
-
-        playersScoreboard.setWinningSequence(winningSequence);
+        PlayersScoreboard playersScoreboard = preparePlayerScoreboard();
 
         while (gameContinues) {
 
@@ -65,10 +47,86 @@ public class Game implements ScoreBoardListener {
                     .findAny()
                     .get();
         }
-
     }
 
-    public void gamePreparation() {
+    public void prepareBoard(int height, int width) {
+        this.board = new Board(height, width);
+    }
+
+    public Player createPlayer(String symbol, String name, int position) {
+        return new Player.PlayerBuilder()
+                .positionOrder(position)
+                .setSign(symbol)
+                .name(name)
+                .build();
+    }
+
+    public void scoreBoardAnnouncement() {
+        message("Do you wish to continue? \n" +
+                "1. Yes \n" +
+                "2. No");
+
+        switch (messenger.takeCharacterSequence()) {
+            case "1":
+                gameContinues = true;
+                break;
+            case "2":
+                gameContinues = false;
+                break;
+            default:
+                message("Bad decision");
+                this.scoreBoardAnnouncement();
+        }
+    }
+
+    boolean isSymbol(String symbol) {
+        return symbol.equals("O") || symbol.equals("X");
+    }
+
+    private PlayersScoreboard preparePlayerScoreboard() {
+
+        PlayersScoreboard playersScoreboard = PlayersScoreboard.prepareGameScoreboard(players, messenger);
+        playersScoreboard.setScoreBoardListener(this);
+
+        currentPlayer = players.get(0);
+
+        message("Set winning sequence");
+        int winningSequence;
+        while (true) {
+            winningSequence = messenger.takeDigit();
+            if (winningSequence > board.getBoardHeight() || winningSequence > board.getBoardWidth()) {
+                message("You cannot set wwinning sequence bigger than board width or height!");
+                continue;
+            }
+            break;
+        }
+
+        playersScoreboard.setWinningSequence(winningSequence);
+        return playersScoreboard;
+    }
+
+    private void takeBoardDataAndCreate() {
+
+        int height;
+        int width;
+        message("...Set board size... ");
+        while (true) {
+            message("Board height: ");
+            height = messenger.takeDigit();
+            message("Board width");
+            width = messenger.takeDigit();
+
+            if (height < 3 || width < 3) {
+                messenger.printMessage("You minimum board size: 3x3");
+            } else {
+                break;
+            }
+        }
+        message("...Preparing board...");
+        prepareBoard(height, width);
+    }
+
+    private void gamePreparation() {
         message("...Player creation sequence...");
 
         //TODO create another way of player creation sequence
@@ -82,7 +140,7 @@ public class Game implements ScoreBoardListener {
 
                 while (!isSymbol(symbol)) {
                     try {
-                        symbol = takePlayerSymbolInput();
+                        symbol = messenger.takePlayerSymbol();
                     } catch (InputMismatchException e) {
                         message("Must be x or o");
                     }
@@ -100,72 +158,7 @@ public class Game implements ScoreBoardListener {
         takeBoardDataAndCreate();
     }
 
-    private void takeBoardDataAndCreate() {
-
-        int height;
-        int width;
-        message("...Set board size... ");
-        while (true) {
-            message("Board height: ");
-            height = messenger.takeDigit();
-            message("Board width");
-            width = messenger.takeDigit();
-
-            if (height < 3 || width < 3) {
-                messenger.printMessage("You minimum board size: 3x3");
-                continue;
-            } else {
-                break;
-            }
-        }
-        message("...Preparing board...");
-        prepareBoard(height, width);
+    private void message(String message) {
+        messenger.printMessage(message);
     }
-
-    public void prepareBoard(int height, int width) {
-        this.board = new Board(height, width);
-    }
-
-    public Player createPlayer(String symbol, String name, int position) {
-        return new Player.PlayerBuilder()
-                .positionOrder(position)
-                .setSign(symbol)
-                .name(name)
-                .build();
-    }
-
-    public String takePlayerSymbolInput() throws InputMismatchException {
-
-        String symbol = messenger.takePlayerSymbol();
-        return symbol;
-    }
-
-    public void minGamesPrompt() {
-        message("Do you wish to continue? \n" +
-                "1. Yes \n" +
-                "2. No");
-
-        String decision = messenger.takeCharacterSequence();
-
-        switch (decision) {
-            case "1":
-                gameContinues = true;
-                break;
-            case "2":
-                gameContinues = false;
-                break;
-            default:
-                message("Bad decision");
-                minGamesPrompt();
-        }
-    }
-
-    boolean isSymbol(String symbol) {
-        return symbol.equals("O") || symbol.equals("X");
-    }
-
-    private String message(String message) {
-        return messenger.printMessage(message);
-    }
-
 }

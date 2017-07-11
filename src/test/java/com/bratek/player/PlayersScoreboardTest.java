@@ -1,6 +1,7 @@
 package com.bratek.player;
 
 import com.bratek.communication.Messenger;
+import com.bratek.communication.TcpMessenger;
 import com.bratek.communication.UIMessenger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -31,9 +32,6 @@ public class PlayersScoreboardTest {
 
     @BeforeMethod()
     public void setupPlayers() {
-
-
-
         players.add(new Player.PlayerBuilder()
                 .name("Tymek")
                 .positionOrder(1)
@@ -46,8 +44,7 @@ public class PlayersScoreboardTest {
                 .setSign("O")
                 .build());
 
-        playersScoreboard = new PlayersScoreboard();
-        playersScoreboard.providePlayers(players);
+        playersScoreboard = PlayersScoreboard.prepareGameScoreboard(players, new UIMessenger());
         playersScoreboard.setScoreBoardListener(() -> {
 
         });
@@ -100,7 +97,9 @@ public class PlayersScoreboardTest {
         playersScoreboard.addPoint(players.get(1));
 
         assertEquals((int)playersScoreboard.getPlayers().get("Tymek"), 2);
-
+        assertEquals((int)playersScoreboard.getPlayers().get("Remigiusz"), 1);
     }
+
+
 
 }
