@@ -41,7 +41,7 @@ public class WinUtil {
 
     private static boolean checkDiagonal(Board board, BoardField boardField, int winSequence) {
         int tmp = 0;
-        for (int i = boardField.getFieldNumber(); i <= board.size(); i = i + board.getBoardWidth() + 1) {
+        for (int i = boardField.getFieldNumber(); i < board.size(); i = i + board.getBoardWidth() + 1) {
             if (board.get(i).getSymbol().equals(boardField.getSymbol())){
                 if(i < board.getBoardWidth()) {
                     tmp++;

@@ -65,6 +65,9 @@ public class Turn {
                 } catch (NumberFormatException e) {
                     messenger.printMessage("Only decimal numbers allowed");
                     continue;
+                } catch (IndexOutOfBoundsException e) {
+                    messenger.printMessage("Can't draw beside board!");
+                    continue;
                 }
                 goAgain = false;
             } while (goAgain);

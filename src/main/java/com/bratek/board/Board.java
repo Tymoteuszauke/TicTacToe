@@ -77,7 +77,6 @@ public class Board {
 
     @Override
     public String toString() {
-
         StringBuilder stringBuilder = new StringBuilder();
         int counter = 0;
         for (BoardField boardField : board) {
@@ -85,8 +84,9 @@ public class Board {
             counter++;
 
             if (counter == boardWidth) {
-                stringBuilder.append(System.getProperty("line.separator"));
-                //stringBuilder.append("\n");
+                //stringBuilder.append(System.getProperty("line.separator"));
+                //uberhack
+                stringBuilder.append("\r\n");
                 counter = 0;
             }
         }

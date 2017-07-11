@@ -32,6 +32,8 @@ public class Game implements ScoreBoardListener {
         gamePreparation();
         PlayersScoreboard playersScoreboard = preparePlayerScoreboard();
 
+        currentPlayer = players.get(0);
+
         while (gameContinues) {
 
             new Turn.TurnBuilder()
@@ -87,8 +89,6 @@ public class Game implements ScoreBoardListener {
 
         PlayersScoreboard playersScoreboard = PlayersScoreboard.prepareGameScoreboard(players, messenger);
         playersScoreboard.setScoreBoardListener(this);
-
-        currentPlayer = players.get(0);
 
         message("Set winning sequence");
         int winningSequence;
