@@ -75,27 +75,26 @@ public class Game implements ScoreBoardListener {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             message(String.format("Player %d provide name", i + 1));
             String name = messenger.takeCharacterSequence();
-            String sign = "";
+            String symbol = "";
 
             if (players.size() == 0) {
-                message(String.format("Player %d provide sign", i + 1));
+                message(String.format("Player %d provide symbol", i + 1));
 
-                while (!isSign(sign)) {
+                while (!isSymbol(symbol)) {
                     try {
-                        sign = takePlayerSymbolInput();
+                        symbol = takePlayerSymbolInput();
                     } catch (InputMismatchException e) {
                         message("Must be x or o");
                     }
-                    if (isSign(sign)) continue;
                 }
             } else {
                 if (players.get(0).getSign().equals("X")) {
-                    sign = "O";
+                    symbol = "O";
                 } else {
-                    sign = "X";
+                    symbol = "X";
                 }
             }
-            players.add(createPlayer(sign, name));
+            players.add(createPlayer(symbol, name, players.size() + 1));
         }
 
         takeBoardDataAndCreate();
@@ -127,9 +126,9 @@ public class Game implements ScoreBoardListener {
         this.board = new Board(height, width);
     }
 
-    public Player createPlayer(String symbol, String name) {
+    public Player createPlayer(String symbol, String name, int position) {
         return new Player.PlayerBuilder()
-                .positionOrder(players.size() + 1)
+                .positionOrder(position)
                 .setSign(symbol)
                 .name(name)
                 .build();
@@ -161,8 +160,8 @@ public class Game implements ScoreBoardListener {
         }
     }
 
-    private boolean isSign(String sign) {
-        return sign.equals("O") || sign.equals("X");
+    boolean isSymbol(String symbol) {
+        return symbol.equals("O") || symbol.equals("X");
     }
 
     private String message(String message) {

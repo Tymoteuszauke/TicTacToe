@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.InputMismatchException;
 
 import static org.testng.Assert.*;
 
@@ -38,25 +39,30 @@ public class UIMessengerTest {
         };
     }
 
+    @DataProvider
+    public static Object[][] allowedSymbols() {
+        return new Object[][]{
+                {"X"},
+                {"O"}
+        };
+    }
+
     @BeforeTest
     public void prepare() {
         uiMessenger = new UIMessenger();
     }
 
+    @Test(dataProvider = "allowedSymbols")
+    public void shouldReturnGivenCommand(String symbol) {
+        uiMessenger.setInputStream(new ByteArrayInputStream(symbol.getBytes()));
 
-    @DataProvider(name = "allowedCommands")
-    public static Object[][] allowedCommands() {
-        return new Object[][]{
-                {"X", ""},
-                {"O", ""}
-        };
+        assertEquals(uiMessenger.takePlayerSymbol(), symbol);
     }
 
-    @Test(dataProvider = "allowedCommands")
-    public void shouldReturnGivenCommand(String command, String result) {
-        uiMessenger.setInputStream(new ByteArrayInputStream(command.getBytes()));
-
-        assertEquals(uiMessenger.takePlayerSymbol(), command);
+    @Test(dataProvider = "playerInputData", expectedExceptions = InputMismatchException.class)
+    public void takePlayerSymbolTestExpectInputMismatchException(String input) {
+        uiMessenger.setInputStream(new ByteArrayInputStream(input.getBytes()));
+        uiMessenger.takePlayerSymbol();
     }
 
     @Test

@@ -45,27 +45,17 @@ public class UIMessenger implements Messenger {
         this.inputStream = inputStream;
     }
 
-    /*
-    *   How to test this method?
-    * */
     public String printMessage(String message){
         printStream.println(message);
         return message;
     }
 
-    public String printBoard(Board board) {
-        printStream.println(board);
-        return board.toString();
-    }
-
     public String takePlayerSymbol() {
         Scanner scanner = new Scanner(inputStream);
-        String command = scanner.nextLine().toUpperCase();
+        String symbol = scanner.nextLine().toUpperCase();
 
-        if(!isSign(command)){
-            throw new InputMismatchException("Wrong Command");
-        }
-        return command;
+        if (symbol.equals("X") || symbol.equals("O")) return symbol;
+        throw new InputMismatchException("Wrong Command");
     }
 
     public int takeDigit() throws NumberFormatException {
@@ -73,7 +63,6 @@ public class UIMessenger implements Messenger {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    @Override
     public int takePlayerMove() throws NumberFormatException {
         Scanner scanner = new Scanner(inputStream);
         return Integer.parseInt(scanner.nextLine());
@@ -82,9 +71,5 @@ public class UIMessenger implements Messenger {
     public String takeCharacterSequence() {
         Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
-    }
-
-    private boolean isSign(String command) {
-        return command.equals("X") || command.equals("O");
     }
 }
