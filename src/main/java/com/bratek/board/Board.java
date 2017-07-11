@@ -85,8 +85,8 @@ public class Board {
             counter++;
 
             if (counter == boardWidth) {
-                //stringBuilder.append(System.getProperty("line.separator"));
-                stringBuilder.append("\n");
+                stringBuilder.append(System.getProperty("line.separator"));
+                //stringBuilder.append("\n");
                 counter = 0;
             }
         }
