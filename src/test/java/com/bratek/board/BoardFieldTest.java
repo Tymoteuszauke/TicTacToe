@@ -128,4 +128,9 @@ public class BoardFieldTest {
         assertEquals(boardField.isTaken(), true);
     }
 
+    @Test
+    public void deliberateFailedTest() {
+        assertEquals(true, false);        
+    }
+
 }
